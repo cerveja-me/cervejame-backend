@@ -9,7 +9,7 @@
  * http://sailsjs.org/#!/documentation/concepts/ORM
  */
 
-module.exports.models = {
+ module.exports.models = {
 
   /***************************************************************************
   *                                                                          *
@@ -27,6 +27,6 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  // migrate: 'alter'
+  migrate: 'alter'
 
 };
