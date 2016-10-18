@@ -24,7 +24,7 @@
   p.description = params.description;
   p.img = params.img;
   p.price = params.price;
-
+  p.sku  = params.sku;
   return p;
 }
 };
