@@ -15,7 +15,7 @@
         if(device){
           Device.update({id:device.id},{id:device.id})
           .then(function (result) {
-            return res.json(device);
+            return res.json(result[0]);
           })
         }else{
           var data = Device.prepareData(req.body);
