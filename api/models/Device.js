@@ -11,11 +11,13 @@
   attributes: {
    id: { type: 'string', required: true,  primaryKey: true  },
    push_token: { type: 'string', required: true },
+   costumer:{model:'costumer',required:false},
  },
  prepareData: function(params) {
   var d = {};
   d.id = uuid.v4();
   d.push_token = params.push_token;
+  d.costumer=params.costumer;
   return d;
 },
 };
