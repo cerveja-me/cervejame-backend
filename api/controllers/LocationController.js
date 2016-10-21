@@ -19,10 +19,11 @@
         .then(function (zones) {
           data.zone=zones[0];
           Location.create(data)
-          .then(function(result) {
+          .then(function(location) {
             Prodreg.find({zone:data.zone.id}).populate('product')
             .then(function (products) {
-              return res.json(products);
+              location.products = products;
+              return res.json(location);
             })
             .catch(function(error) {
               res.status(500);
