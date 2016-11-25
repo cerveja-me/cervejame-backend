@@ -17,33 +17,37 @@
     value: {type: 'float',required: false},
   },
 
-  mapProducts:function (products) {
-    return Q.Promisse(function(resolve, reject) {
-      resolve(products);
-    });
+  mapProducts:function (products,pos) {
+    console.log('n-oi');
+    return Q(function(resolve, reject) {
+      if(pos<products.length-1){
+        console.log('n-oi');
+        mapProducts(products,pos++)
+        .then(function (res) {
+          products=res;
+          resolve(products);
+        })
+      }else{
+        console.log('oi');
+        Prodreg.findOne({id:products[pos].id}).populate('product')
+        .then(function (prod) {
+          products[pos]=prod;
+          resolve(products);
+        });
+      }
+    })
   },
   prepareData: function(params) {
-    var s = {};
-    s.location = params.location;
-    s.payment=params.payment;
-    this.mapProducts(params.products)
-    .then(function (products) {
-      s.products= products;
+    return Q(function(resolve, reject) {
+      console.log('oi');
+      var s = {};
+      s.location = params.location;
+      s.payment=params.payment;
+      Sale.mapProducts(params.products,0)
+      .then(function (products) {
+        s.products= products;
+        resolve(s);
+      });
     });
-    // s.products = params.products.map(function (prodReg) {
-    //   console.log("prod->",prodReg);
-    //   Prodreg.findOne({id:prodReg.id}).populate('product')
-    //   .then(function (prod) {
-    //     console.log("prod->",prod,"finalPrice->", prod.price*prodReg.amount);
-    //     return prod;
-    //   })
-    //   .catch(function (err) {
-    //     throw new TypeError(' this is null or not defined');
-    //   })
-    // },function (argument) {
-    //   console.log("aaa: ",argument);
-    // })
-
-    return s;
   },
 };

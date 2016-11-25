@@ -10,8 +10,12 @@
     if (!req.body) {
       return res.badRequest( 'you must pass all parameters');
     } else {
-      var sale = Sale.prepareData(req.body);
-      return res.json(sale);
+      console.log('n-oi');
+      Sale.prepareData(req.body)
+      .then(function (sale) {
+        return res.json(sale);
+      });
+
 
     }
   }
