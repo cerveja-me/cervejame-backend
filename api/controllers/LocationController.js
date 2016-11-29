@@ -15,7 +15,7 @@
       .then(function (device) {
         data.device=device;
         /* Apos migrar vamos usar uma busca dentro do mysql com uma estimativa de tempo*/
-        Zone.find({id: '81bb17e0-2542-4531-a0d8-b0dc2128590c'})
+        Zone.find()
         .then(function (zones) {
           data.zone=zones[0];
           Location.create(data)

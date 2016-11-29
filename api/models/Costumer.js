@@ -11,7 +11,7 @@
   attributes: {
     id: { type: 'string', required: true,  primaryKey: true  },
     device:{model:'device',required:true},
-    name:{type: 'string', required: true,  primaryKey: true  },
+    name:{type: 'string', required: true},
   },
   prepareData: function(params) {
     var c = {};
