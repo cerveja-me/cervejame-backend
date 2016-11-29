@@ -7,7 +7,7 @@
  var uuid = require('node-uuid');
 
  module.exports = {
-
+  autoPK: false,
   attributes: {
     id: { type: 'string', required: true,  primaryKey: true  },
     device:{model:'device',required:true},

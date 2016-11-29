@@ -6,7 +6,7 @@
  */
 
  module.exports = {
-
+  autoPK: false,
   attributes: {
     id: { type: 'string', required: true,  primaryKey: true ,defaultsTo:function() {return uuid.v4();} },
     prodreg:{model:'prodreg',required:true},

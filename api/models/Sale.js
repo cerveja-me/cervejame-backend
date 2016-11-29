@@ -8,7 +8,7 @@
  var Q = require('q');
 
  module.exports = {
-
+  autoPK: false,
   attributes: {
     id: { type: 'string', required: true,  primaryKey: true ,defaultsTo:function() {return uuid.v4();} },
     location:{model:'location',required:true},

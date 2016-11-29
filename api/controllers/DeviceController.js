@@ -7,6 +7,7 @@
 
  module.exports = {
    create: function (req, res) {
+    // console.log('reqqq->>>',req.body);
     if (!req.body) {
       return res.badRequest( 'you must pass all parameters: email name ');
     } else {

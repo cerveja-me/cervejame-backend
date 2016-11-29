@@ -5,8 +5,9 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
  var uuid = require('node-uuid');
- module.exports = {
 
+ module.exports = {
+  autoPK: false,
   attributes: {
     id: { type: 'string', required: true,  primaryKey: true  },
     zone:{model:'zone',required:true},
