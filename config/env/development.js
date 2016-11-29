@@ -18,7 +18,8 @@
    ***************************************************************************/
 
    models: {
-    connection: 'awsMysqlServer'
+    connection: 'localMysqlServer',
+    migrate: 'alter'
   }
 
 };

@@ -47,6 +47,13 @@
     password: 'cervejame', //optional
     database: 'cervejame' //optional
   },
+  localMysqlServer: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'root', //optional
+    // password: '', //optional
+    database: 'cervejame' //optional
+  },
 
   /***************************************************************************
   *                                                                          *
