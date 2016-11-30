@@ -15,8 +15,9 @@
    description: { type: 'string', required: false },
    latNorth:{ type: 'string', required: true },
    longNorth:{ type: 'string', required: true },
-   latNorth:{ type: 'string', required: true },
-   longNorth:{ type: 'string', required: true },
+   latSouth:{ type: 'string', required: true },
+   longSouth:{ type: 'string', required: true },
+   active: {type: 'boolean',required: false, defaultsTo: true}
  },
  prepareData: function(params) {
   var z = {};
