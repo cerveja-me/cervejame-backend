@@ -19,7 +19,7 @@
 
    models: {
     connection: 'awsMysqlServer',
-    migrate: 'alter'
+    migrate: 'safe'
   },
 
   /***************************************************************************
