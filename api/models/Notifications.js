@@ -5,10 +5,12 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-module.exports = {
+ module.exports = {
 
   attributes: {
-
+    id: { type: 'string', required: true,  primaryKey: true ,defaultsTo:function() {return uuid.v4();} },
+    notification:{type: 'string', required: true},
+    id_table:{type: 'string', required: true}
   }
 };
 

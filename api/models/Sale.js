@@ -20,5 +20,4 @@
     unitvalue: {type: 'float',required: false},
     amount: {type: 'integer',required:false},
   }
-
 };

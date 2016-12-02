@@ -14,6 +14,7 @@
       Device.findOne({id:data.device})
       .then(function (device) {
         data.device=device;
+        console.log('device ->',device);
         /* Apos migrar vamos usar uma busca dentro do mysql com uma estimativa de tempo*/
         Zone.find()
         .then(function (zones) {
