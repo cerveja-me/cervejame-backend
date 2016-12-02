@@ -12,12 +12,15 @@
     id: { type: 'string', required: true,  primaryKey: true  },
     device:{model:'device',required:true},
     name:{type: 'string', required: true},
+    email:{type: 'string', required: true},
+    password:{type: 'string', required: true},
+    facebook_id:{type: 'string', required: false},
+    facebook_token:{type: 'string', required: false},
+    phone:{type: 'string', required: false},
   },
   prepareData: function(params) {
-    var c = {};
+    var c = params;
     c.id = uuid.v4();
-    c.device = params.device;
-    c.name=params.name;
     return c;
   },
 };
