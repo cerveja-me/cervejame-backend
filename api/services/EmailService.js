@@ -58,8 +58,19 @@
  * Created by gkatzioura on 6/20/16.
  */
  var send = function (text,callback) {
-  sails.log.info("Should send text: "+text)
-  callback();
+  var requestify = require('requestify');
+  requestify.post('https://hooks.slack.com/services/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', {
+    "text": "*ENVIADO PELO SERVER*\n*Nome*: Jeferson Fernando Guardezi \n*Facebook*: <https://www.facebook.com/guardezi>\n *Pedido*: 2 cx de Brahma\n *local*:<http://maps.google.com/maps?daddr=-23.529880,-46.679287&ll=>"
+  })
+  .then(function(response) {
+        // Get the response body
+        console.log(response.getBody());
+        sails.log.info("Should send text: "+response.getBody());
+        callback();
+      });
+
+
+
 };
 module.exports =  {
   send: send
