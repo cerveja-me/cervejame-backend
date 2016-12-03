@@ -23,7 +23,6 @@
         s.value = s.unitvalue * s.amount;
         Costumer.findOne({id:params.costumer})
         .then(function (cost) {
-          console.log('costumer0->',cost);
           s.costumer = cost;
           Sale.create(s)
           .then(function (saleRes) {

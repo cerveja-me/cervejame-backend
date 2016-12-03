@@ -54,20 +54,48 @@
 //     // });
 //   }
 // };
-/**
- * Created by gkatzioura on 6/20/16.
- */
- var send = function (text,callback) {
+var uuid = require('node-uuid');
+
+var send = function (text,callback) {
   var requestify = require('requestify');
-  requestify.post('https://hooks.slack.com/services/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', {
-    "text": "*ENVIADO PELO SERVER*\n*Nome*: Jeferson Fernando Guardezi \n*Facebook*: <https://www.facebook.com/guardezi>\n *Pedido*: 2 cx de Brahma\n *local*:<http://maps.google.com/maps?daddr=-23.529880,-46.679287&ll=>"
-  })
-  .then(function(response) {
-        // Get the response body
-        console.log(response.getBody());
-        sails.log.info("Should send text: "+response.getBody());
-        callback();
+  var Promise = require('bluebird');
+
+  var query = "select c.name as name,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount, s.id as sale_id, l.lat as lat, l.long as lng "+
+  "from sale s "+
+  "left join `prodreg` pr on pr.id = s.prodreg "+
+  "left join `product` p  on p.id  = pr.product "+
+  "left join `costumer` c on c.id = s.costumer "+
+  "left join `location` l on l.id = s.location "+
+  "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED') limit 1;"
+
+
+  var queryAssync = Promise.promisify(Sale.query);
+  queryAssync(query)
+  .then(function (res) {
+    var text=res[0];
+    if(res.length > 0){
+      return requestify.post('https://hooks.slack.com/services/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', {
+        "text": "*ENVIADO PELO SERVER*\n*Nome*: "+text.name+" \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+">\n *Pedido*: "+text.amount+" cx de "+text.proname+"\n *local*:<http://maps.google.com/maps?daddr="+text.lat+","+text.lng+"&ll=>"
+      })
+      .then(function(response) {
+        var not ={
+          id:uuid.v4(),
+          notification:"SALE_RECEIVED",
+          id_table:text.sale_id
+        }
+        Notifications.create(not)
+        .then(function (res) {
+          callback(res);
+        })
       });
+    }else{
+      callback();
+    }
+
+  })
+  .catch(function (err) {
+    sails.log.info('err->',err);
+  })
 
 
 
