@@ -14,7 +14,8 @@
     device:{model:'device',required:true},
     zone:{model:'zone',required:false},
     lat:{ type: 'string', required: true},
-    long:{ type: 'string', required: true}
+    long:{ type: 'string', required: true},
+    address:{ type: 'string', required: false}
   },
   prepareData: function(params) {
     var l = {};
@@ -23,6 +24,7 @@
     l.zone = params.zone;
     l.lat = params.location.split(",")[0];
     l.long = params.location.split(",")[1];
+    l.address = params.address;
 
     return l;
   },
