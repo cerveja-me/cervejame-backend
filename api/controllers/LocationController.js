@@ -14,22 +14,25 @@
       Device.findOne({id:data.device})
       .then(function (device) {
         data.device=device;
-        console.log('device ->',device);
-        /* Apos migrar vamos usar uma busca dentro do mysql com uma estimativa de tempo*/
-        Zone.find()
+        Zone.find({ where: { latNorth: { '<': data.lat },latSouth :{ '>': data.lat },
+          longNorth:{ '>': data.long},longSouth:{ '<': data.long},active:true } })
         .then(function (zones) {
           data.zone=zones[0];
           Location.create(data)
           .then(function(location) {
-            Prodreg.find({zone:data.zone.id}).populate('product')
-            .then(function (products) {
-              location.products = products;
+            if(location.zone){
+              Prodreg.find({zone:data.zone.id}).populate('product')
+              .then(function (products) {
+                location.products = products;
+                return res.json(location);
+              })
+              .catch(function(error) {
+                res.status(500);
+                return res.json(error);
+              });
+            }else{
               return res.json(location);
-            })
-            .catch(function(error) {
-              res.status(500);
-              return res.json(error);
-            });
+            }
           })
           .catch(function(error) {
             res.status(500);
