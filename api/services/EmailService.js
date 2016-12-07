@@ -75,7 +75,7 @@ var send = function (text,callback) {
     var text=res[0];
     if(res.length > 0){
       return requestify.post('https://hooks.slack.com/services/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', {
-        "text": "*NOVO PEDIDO*\n*Nome*: "+text.name+" \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+">\n *Pedido*: "+text.amount+" cx de "+text.proname+"\nendereço: "+text.address+"\nFone: "+text.phone+ "\n*local*:<http://maps.google.com/maps?daddr="+text.lat+","+text.lng+"&ll=>"
+        "text": "*NOVO PEDIDO*\n*Nome*: "+text.name+" \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+">\n *Pedido*: "+text.amount+" cx de "+text.proname+"\n*endereço*: "+text.address+"\n*Fone*: "+text.phone+ "\n*local*:<http://maps.google.com/maps?daddr="+text.lat+","+text.lng+"&ll=>"
       })
       .then(function(response) {
         var not ={
