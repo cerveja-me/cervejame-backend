@@ -4,6 +4,7 @@
  * @description :: Server-side logic for managing locations
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+ var Promise = require('bluebird');
 
  module.exports = {
   create: function (req, res) {
@@ -14,8 +15,14 @@
       Device.findOne({id:data.device})
       .then(function (device) {
         data.device=device;
-        Zone.find({ where: { latNorth: { '<': data.lat },latSouth :{ '>': data.lat },
-          longNorth:{ '>': data.long},longSouth:{ '<': data.long},active:true } })
+        var zoneQueryAsync = Promise.promisify(Zone.query);
+
+        zoneQueryAsync("select * from zone "+
+         "where cast(`latNorth` AS DECIMAL(10,7)) > ? "+
+         "and ? > cast(`latSouth` AS DECIMAL(10,7)) "+
+         "and cast(`longNorth` AS DECIMAL(10,7)) < ? "+
+         "and ? < cast(`longSouth` AS DECIMAL(10,7)) "+
+         "and active =  true;",[data.lat,data.lat,data.long,data.long])
         .then(function (zones) {
           data.zone=zones[0];
           Location.create(data)
