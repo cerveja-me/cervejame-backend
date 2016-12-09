@@ -60,9 +60,10 @@ var send = function (text,callback) {
   var requestify = require('requestify');
   var Promise = require('bluebird');
 
-  var query = "select c.name as name,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
+  var query = "select c.name as name,z.slack as slack,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
   "from sale s "+
   "left join `prodreg` pr on pr.id = s.prodreg "+
+  "left join `zone` z on pr.zone = z.id "+
   "left join `product` p  on p.id  = pr.product "+
   "left join `costumer` c on c.id = s.costumer "+
   "left join `location` l on l.id = s.location "+
@@ -74,7 +75,7 @@ var send = function (text,callback) {
   .then(function (res) {
     var text=res[0];
     if(res.length > 0){
-      return requestify.post('https://hooks.slack.com/services/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', {
+      return requestify.post(text.slack, {
         "text": "*NOVO PEDIDO*\n*Nome*: "+text.name+
         " \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+
         ">\n *Pedido*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
