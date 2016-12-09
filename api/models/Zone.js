@@ -18,6 +18,7 @@
    latSouth:{ type: 'string', required: true },
    longSouth:{ type: 'string', required: true },
    active: {type: 'boolean',required: false, defaultsTo: true}
+   slack:{ type: 'string', required: false },
  },
  prepareData: function(params) {
   var z = {};
@@ -28,7 +29,7 @@
   z.longNorth = params.north.split(",")[1];
   z.latSouth  = params.south.split(",")[0];
   z.longSouth = params.south.split(",")[1];
-
+  z.slack = params.slack;
   return z;
 }
 };
