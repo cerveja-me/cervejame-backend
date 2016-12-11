@@ -28,7 +28,7 @@
           Location.create(data)
           .then(function(location) {
             if(location.zone){
-              Prodreg.find({zone:data.zone.id}).populate('product')
+              Prodreg.find({zone:data.zone.id, active:true}).populate('product')
               .then(function (products) {
                 location.products = products;
                 return res.json(location);
