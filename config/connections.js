@@ -47,6 +47,13 @@
     password: 'cervejame', //optional
     database: 'cervejame' //optional
   },
+  devMysqlServer: {
+    adapter: 'sails-mysql',
+    host: 'cervejame-dev.coxgsmepqodf.sa-east-1.rds.amazonaws.com',
+    user: 'cervejame', //optional
+    password: 'cervejame', //optional
+    database: 'cervejame' //optional
+  },
   localMysqlServer: {
     adapter: 'sails-mysql',
     host: 'localhost',
