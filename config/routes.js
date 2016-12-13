@@ -37,6 +37,15 @@
   },
   'post /auth/login' : 'AuthController.login',
   'post /costumer/update':'CostumerController.update',
+  'get /auth': {view: 'homepage'},
+  'get /costumer': {view: 'homepage'},
+  'get /device': {view: 'homepage'},
+  'get /location': {view: 'homepage'},
+  'get /notification': {view: 'homepage'},
+  'get /prodreg': {view: 'homepage'},
+  'get /product': {view: 'homepage'},
+  'get /sale': {view: 'homepage'},
+  'get /zone': {view: 'homepage'},
 
   /***************************************************************************
   *                                                                          *
