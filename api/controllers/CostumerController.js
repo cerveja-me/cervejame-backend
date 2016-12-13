@@ -61,11 +61,12 @@
       return res.badRequest( 'you must pass all parameters: email name ');
     } else {
       var data = req.body;
-      console.log('data->',data);
       Costumer.update({id:data.id},{phone:data.phone})
       .then(function (resp) {
-        console.log('res',resp);
-        return res.json(resp[0]);
+        var u= resp[0];
+        delete u.password;
+        delete u.device;
+        return res.json(u);
       })
       .catch(function (err) {
         console.log('err->',err);
