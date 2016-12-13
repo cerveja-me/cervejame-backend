@@ -55,5 +55,19 @@
         }
       })
     }
+  },
+  update: function (req, res) {
+    if (!req.body) {
+      return res.badRequest( 'you must pass all parameters: email name ');
+    } else {
+      var data = req.body;
+      Costumer.update({id:data.id},{phone:data.phone})
+      .then(function (res) {
+        return res.json(res[0]);
+      })
+      .catch(function (err) {
+        return res.json(err);
+      })
+    }
   }
 }

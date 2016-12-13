@@ -36,6 +36,7 @@
     view: 'homepage'
   },
   'post /auth/login' : 'AuthController.login',
+  'post /costumer/update':'CostumerController.update',
 
   /***************************************************************************
   *                                                                          *
