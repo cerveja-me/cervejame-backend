@@ -18,7 +18,7 @@
   *                                                                          *
   ***************************************************************************/
   // connection: 'localDiskDb',
-  connection: 'awsMysqlServer',
+  // connection: 'awsMysqlServer',
   // connection: 'localMysqlServer',
 
 
@@ -30,7 +30,7 @@
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  migrate: 'safe'
+  // migrate: 'safe'
   // migrate: 'alter'
   // migrate: 'alter'
 
