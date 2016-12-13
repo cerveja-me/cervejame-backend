@@ -32,8 +32,8 @@
                 }
                 Auth.create(au)
                 .then(function (result) {
-                  delete au.costumer.password;
-                  delete au.costumer.device;
+                  delete result.costumer.password;
+                  delete result.costumer.device;
                   var r = {
                     token:result.id,
                     device:result.device,
