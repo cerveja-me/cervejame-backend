@@ -19,7 +19,8 @@
 
    models: {
     connection: 'devMysqlServer',
-    migrate: 'alter'
+    migrate: 'safe',
+    hookTimeout: 40000
   }
 
 };
