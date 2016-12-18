@@ -4,7 +4,6 @@ var uuid = require('node-uuid');
 
 module.exports =  {
   requestReceived: function (text,callback) {
-
     var query = "select s.id as sale_id, d.push_token from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
