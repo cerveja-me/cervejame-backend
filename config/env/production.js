@@ -19,7 +19,8 @@
 
    models: {
     connection: 'awsMysqlServer',
-    migrate: 'safe'
+    migrate: 'safe',
+    hookTimeout: 40000
   },
 
   /***************************************************************************
