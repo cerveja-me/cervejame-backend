@@ -13,6 +13,8 @@
     id: { type: 'string', required: true,  primaryKey: true ,defaultsTo:function() {return uuid.v4();} },
     location:{model:'location',required:true},
     payment:{type: 'string', required: true},
+    aceptedAt:{type:'datetime', required:false},
+    onWayAt:{type:'datetime', required:false},
     finishedAt:{type:'datetime', required:false},
     prodreg:{model:'prodreg',required:true},
     costumer:{model:'costumer',required:true},
