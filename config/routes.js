@@ -40,6 +40,7 @@
   'get /sale/accept/:id':'SaleController.accept',
   'get /sale/onway/:id':'SaleController.onWay',
   'get /sale/finished/:id':'SaleController.finished',
+  'get /sale/finished/ratecostumer/:id/:rate':'SaleController.costumerRate',
   'get /auth': {view: 'homepage'},
   'get /costumer': {view: 'homepage'},
   'get /device': {view: 'homepage'},

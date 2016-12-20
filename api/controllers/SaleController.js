@@ -10,7 +10,6 @@
     if (!req.body) {
       return res.badRequest('you must pass all parameters');
     } else {
-
       var params = req.body;
       var s ={};
       s.location = params.location;
@@ -37,20 +36,42 @@
   accept:function (req,res) {
     Sale.update({id:req.params.id},{aceptedAt:new Date()})
     .then(function (result) {
-      return res.send(result[0]);
+      return res.send('<h1>PEDIDO ACEITO</h1>'+
+        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/onway/'+req.params.id+'">ENTREGAR</a>');
     })
   },
   onWay:function (req,res) {
     Sale.update({id:req.params.id},{onWayAt:new Date()})
     .then(function (result) {
-      return res.send(result[0]);
-    })
+      Location.findOne({id:result[0].location})
+      .then(function (local) {
+        return res.send(''+
+          '<a style="font-size: 106px;" href="http://waze.to/?ll='+local.lat+','+local.long+'&navigate=yes/">WAZE</a> <br><br>'+
+          '<a style="font-size: 106px;" href="http://maps.google.com/maps?daddr='+local.lat+','+local.long+'&ll=">MAPS</a> <br><br>'+
+          '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/'+req.params.id+'">CONCLUIR</a> <br>'
+          );
+      })
+
+    });
   },
   finished:function (req,res) {
     Sale.update({id:req.params.id},{finishedAt:new Date()})
     .then(function (result) {
-      return res.send(result[0]);
-    })
+      return res.send('<h1>AVALIAR CLIENTE</h1>'+
+        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/1">NOTA 1</a> <br><br>'+
+        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/2">NOTA 2</a> <br><br>'+
+        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/3">NOTA 3</a> <br><br>'+
+        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/4">NOTA 4</a> <br><br>'+
+        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/5">NOTA 5</a> <br><br>'
+        );
+    });
+  },
+  costumerRate:function (req,res) {
+    Sale.update({id:req.params.id},{costumerRate:req.params.rate})
+    .then(function (result) {
+      return res.send('<h1>Concluido</h1>');
+    });
   }
+
 };
 
