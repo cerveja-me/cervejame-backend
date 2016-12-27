@@ -90,6 +90,7 @@ var send = function (text,callback) {
         }
         Notifications.create(not)
         .then(function (res) {
+          requestify.post(text.slack, {"text": text.phone});
           callback(res);
         })
       });

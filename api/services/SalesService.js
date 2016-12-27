@@ -21,7 +21,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Cerveja.me - Pedido Confirmado", message:"Recebemos o seu pedido. Aguarde a confirmação do entregador."});
+          PushService.send(res[0].push_token,{title:"Pedido Recebido", message:"Recebemos o seu pedido. Aguarde a confirmação do entregador."});
           callback(result);
         })
       }
@@ -49,7 +49,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Cerveja.me - Entrega a caminho", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
+          PushService.send(res[0].push_token,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
           callback(result);
         })
       }
@@ -78,7 +78,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Cerveja.me - Entrega a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
+          PushService.send(res[0].push_token,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
           callback(result);
         })
       }
@@ -92,7 +92,7 @@ module.exports =  {
     var query = "select s.id as sale_id, d.push_token from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
-    "where  s.finishedAt < (now()- interval 10 second) and " +
+    "where  s.finishedAt < (now()- interval 90 second) and " +
     "s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_FINISHED') limit 1;"
 
     var queryAssync = Promise.promisify(Sale.query);
@@ -106,7 +106,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Cerveja.me - Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
+          PushService.send(res[0].push_token,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
           callback(result);
         })
       }
