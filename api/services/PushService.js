@@ -4,28 +4,30 @@ var serverKey = 'AAAAAmhFHUs:APA91bGFcnrgnRWSAqHZwAcmsPtlL8K5cogkR8Ge0VA58YXZG7S
 var fcm = new FCM(serverKey);
 
 module.exports =  {
-  send: function (to, data) {
+  send: function (to, device,data) {
     var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
       to: to,
       collapse_key: 'your_collapse_key',
+    }
 
-      notification: {
+    if(device==='android'){
+      message.data={
         title: data.title,
         body: data.message
-      },
-
-    // data: {  //you can send only notification or only data(or include both)
-    //     my_key: 'my value',
-    //     my_another_key: 'my another value'
-    // }
-  };
-
-  fcm.send(message, function(err, response){
-    if (err) {
-      console.log("Something has gone wrong!");
-    } else {
-      console.log("Successfully sent with response: ", response);
+      }
+    }else{
+      message.notification={
+        title: data.title,
+        body: data.message
+      }
     }
-  });
-}
+    //envia a notificação
+    fcm.send(message, function(err, response){
+      if (err) {
+        console.log("Something has gone wrong!");
+      } else {
+        console.log("Successfully sent with response: ", response);
+      }
+    });
+  }
 }

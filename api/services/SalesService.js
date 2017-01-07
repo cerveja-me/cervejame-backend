@@ -4,7 +4,7 @@ var uuid = require('node-uuid');
 
 module.exports =  {
   requestReceived: function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
     "where s.createdAt < (now()- interval 10 second) and " +
@@ -21,7 +21,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Pedido Recebido", message:"Recebemos o seu pedido. Aguarde a confirmação do entregador."});
+          PushService.send(res[0].push_token,res[0].type,{title:"Pedido Recebido", message:"Recebemos o seu pedido. Aguarde a confirmação do entregador."});
           callback(result);
         })
       }
@@ -32,7 +32,7 @@ module.exports =  {
 
   },
   requestAccepted:function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
     "where  s.aceptedAt < (now()- interval 10 second) and " +
@@ -49,7 +49,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
+          PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
           callback(result);
         })
       }
@@ -61,7 +61,7 @@ module.exports =  {
   },
 
   driverOnWay:function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
     "where  s.onWayAt < (now()- interval 10 second) and " +
@@ -78,7 +78,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
+          PushService.send(res[0].push_token,res[0].type,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
           callback(result);
         })
       }
@@ -106,7 +106,7 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
+          PushService.send(res[0].push_token,res[0].type,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
           callback(result);
         })
       }
