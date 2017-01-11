@@ -14,7 +14,7 @@
       Device.findOne({push_token:req.body.push_token})
       .then(function (device) {
         if(device){
-          Device.update({id:device.id},{id:device.id})
+          Device.update({id:device.id, type:device.type},{id:device.id})
           .then(function (result) {
             return res.json(result[0]);
           })
