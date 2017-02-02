@@ -13,6 +13,7 @@
       var params = req.body;
       var s ={};
       s.location = params.location;
+      s.address=params.address;
       s.payment=params.payment;
       s.amount = params.product.amount;
       Prodreg.findOne({id:params.product.id}).populate('product')
