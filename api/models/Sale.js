@@ -22,6 +22,7 @@
     unitvalue: {type: 'float',required: false},
     amount: {type: 'integer',required:false},
     serviceRate: {type: 'integer',required:false},
-    costumerRate: {type: 'integer',required:false}
+    costumerRate: {type: 'integer',required:false},
+    costumerComment:{type: 'string', required: true}
   }
 };
