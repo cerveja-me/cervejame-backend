@@ -60,7 +60,7 @@ var send = function (text,callback) {
   var requestify = require('requestify');
   var Promise = require('bluebird');
 
-  var query = "select s.id as saleid, c.name as name,z.slack as slack,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
+  var query = "select s.id as saleid,s.address as fulladdress, c.name as name,z.slack as slack,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
   "from sale s "+
   "left join `prodreg` pr on pr.id = s.prodreg "+
   "left join `zone` z on pr.zone = z.id "+
@@ -79,7 +79,9 @@ var send = function (text,callback) {
         "text": " *Pedido*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
         "\n*Nome*: "+text.name+
         " \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+
-        ">\n*endereço*: "+text.address+"\n*Fone*: "+text.phone+
+        ">\n*endereço*: "+text.address+
+        "\n*endereço completo*: "+text.fulladdress+
+        "\n*Fone*: "+text.phone+
         "\n*local*:<http://api.cerveja.me/sale/accept/"+text.saleid+">"
       })
       .then(function(response) {
