@@ -73,5 +73,16 @@
         return res.json(err);
       })
     }
+  },
+
+  lastBuy: function (req, res) {
+    console.log("ooi->",req.params.id);
+    Sale.findOne({costumer:req.params.id,serviceRate:null})
+    .then(function (last) {
+      return res.json(last);
+    })
+    .catch(function (err) {
+      return res.json(err);
+    })
   }
 }

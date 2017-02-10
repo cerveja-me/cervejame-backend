@@ -18,7 +18,7 @@
    ***************************************************************************/
 
    models: {
-    connection: 'devMysqlServer',
+    connection: 'awsMysqlServer',
     migrate: 'safe',
     hookTimeout: 40000
   }
