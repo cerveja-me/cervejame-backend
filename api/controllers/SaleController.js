@@ -73,6 +73,11 @@
       return res.send('<h1>Concluido</h1>');
     });
   }
+  // ,
+  // serviceRate:function (req, res) {
+  //   console.log('body->', req.body);
+  // }
+
 
 };
 

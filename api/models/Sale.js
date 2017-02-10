@@ -24,6 +24,6 @@
     amount: {type: 'integer',required:false},
     serviceRate: {type: 'integer',required:false},
     costumerRate: {type: 'integer',required:false},
-    costumerComment:{type: 'string', required: true}
+    costumerComment:{type: 'string', required: false}
   }
 };
