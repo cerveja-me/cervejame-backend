@@ -76,13 +76,16 @@
   },
 
   lastBuy: function (req, res) {
-    console.log("ooi->",req.params.id);
-    Sale.findOne({costumer:req.params.id,serviceRate:null})
+    Sale.findOne({costumer:req.params.id,serviceRate:null, finishedAt:{ '!': null }})
     .then(function (last) {
-      return res.json(last);
+      if(last){
+        return res.json(last);
+      }else{
+        return res.send();
+      }
     })
     .catch(function (err) {
-      return res.json(err);
+      return res.send();
     })
   }
 }
