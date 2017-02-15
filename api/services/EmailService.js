@@ -79,7 +79,7 @@ var send = function (text,callback) {
         "text": " *Pedido*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
         "\n*Nome*: "+text.name+
         " \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+
-        ">\n*endereço*: "+text.fulladdress?text.fulladdress:text.address+
+        ">\n*endereço*: "+(text.fulladdress!==null?text.fulladdress:text.address)+
         "\n*Fone*: "+text.phone+
         "\n*local*:<http://api.cerveja.me/sale/accept/"+text.saleid+">"
       })
