@@ -73,5 +73,19 @@
         return res.json(err);
       })
     }
+  },
+
+  lastBuy: function (req, res) {
+    Sale.findOne({costumer:req.params.id,serviceRate:null, finishedAt:{ '!': null }})
+    .then(function (last) {
+      if(last){
+        return res.json(last);
+      }else{
+        return res.send();
+      }
+    })
+    .catch(function (err) {
+      return res.send();
+    })
   }
 }

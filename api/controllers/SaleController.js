@@ -72,7 +72,15 @@
     .then(function (result) {
       return res.send('<h1>Concluido</h1>');
     });
+  },
+  sendfeedback:function (req, res) {
+    Sale.update({id:req.body.id},{serviceRate:req.body.rate,costumerComment:req.body.comment})
+    .then(function (result) {
+      return res.send(result);
+    });
+
   }
+
 
 };
 
