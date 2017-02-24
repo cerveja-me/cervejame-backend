@@ -4,6 +4,7 @@
  * @description :: Server-side logic for managing devices
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+ var Promise = require('bluebird');
 
  module.exports = {
    create: function (req, res) {
@@ -32,4 +33,49 @@
       });
     }
   },
+  pushMessage(req,res){
+    var sentdata={ios:0,android:0};
+    if (!req.body) {
+      return res.badRequest( 'you must pass all parameters: email name ');
+    } else {
+      var data = req.body;
+      var deviceQueryAsync = Promise.promisify(Device.query);
+      var query="select push_token, `type` from device where id in ("+
+      "select distinct(device) from location "+
+      " where (type <>'android' OR type is null ) "
+      if(data.zone){
+        query=query+"AND zone='"+data.zone+"');"
+      }else{
+        query=query+');'
+      }
+      deviceQueryAsync(query)
+      .then(function (iosPush) {
+        tokens=iosPush.map(function (tk) {
+          return tk.push_token;
+        });
+
+        PushService.send(tokens,'ios',data);
+        sentdata.ios=iosPush.length;
+        query="select push_token, `type` from device where id in ("+
+        "select distinct(device) from location "+
+        " where type ='android' "
+        if(data.zone){
+          query=query+"AND zone='"+data.zone+"');"
+        }else{
+          query=query+');'
+        }
+        deviceQueryAsync(query)
+        .then(function (androidPush) {
+
+          tokens=androidPush.map(function (tk) {
+            return tk.push_token;
+          });
+          PushService.send(tokens,'android',data);
+
+          sentdata.android=androidPush.length;
+          return res.json(sentdata);
+        })
+      });
+    }
+  }
 };

@@ -5,24 +5,31 @@ var fcm = new FCM(serverKey);
 
 module.exports =  {
   send: function (to, device,data) {
-    var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
-      to: to,
-      collapse_key: 'your_collapse_key',
-    }
 
-    if(device==='android'){
-      message.data={
-        title: data.title,
-        body: data.message
+    var message={};
+    if(Array.isArray(to)){
+      message={
+        registration_ids:to
       }
     }else{
-      message.notification={
-        title: data.title,
-        body: data.message
-      }
+     message= {
+      to: to
     }
+  }
+  if(device==='android'){
+    message.data={
+      title: data.title,
+      body: data.message
+    }
+  }else{
+    message.notification={
+      title: data.title,
+      body: data.message
+    }
+  }
     //envia a notificação
     fcm.send(message, function(err, response){
+      console.log('err->',err, 'response->',response);
       if (err) {
         console.log("Something has gone wrong!");
       } else {

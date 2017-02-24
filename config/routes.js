@@ -39,6 +39,7 @@
   'post /costumer/update':'CostumerController.update',
   'get /costumer/lastbuy/:id': 'CostumerController.lastBuy',
   'post /sale/sendfeedback':'SaleController.sendfeedback',
+  'post /device/sendMessage':'DeviceController.pushMessage',
   'get /sale/accept/:id':'SaleController.accept',
   'get /sale/onway/:id':'SaleController.onWay',
   'get /sale/finished/:id':'SaleController.finished',
