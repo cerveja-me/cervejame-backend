@@ -115,6 +115,50 @@ module.exports =  {
       sails.log.info('err->',err);
     })
 
-  }
+  },
+  sendTelegram:function (text,callback) {
+    var Promise = require('bluebird');
 
+    var query = "select pr.zone as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
+    "from sale s "+
+    "left join `prodreg` pr on pr.id = s.prodreg "+
+    "left join `zone` z on pr.zone = z.id "+
+    "left join `product` p  on p.id  = pr.product "+
+    "left join `costumer` c on c.id = s.costumer "+
+    "left join `location` l on l.id = s.location "+
+    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_TELEGRAM') order by s.createdAt limit 1;"
+
+
+    var queryAssync = Promise.promisify(Sale.query);
+    queryAssync(query)
+    .then(function (res) {
+      if(res.length > 0){
+        var text=res[0];
+        queryAssync("select count(*) as num from sale s left join prodreg pr on pr.id = s.prodreg where pr.zone = '"+text.zone+"'  and s.createdAt<(select createdAt from sale where id = '"+text.saleid+"');")
+        .then(function (ped) {
+          var pednum = parseInt(ped[0].num)+1;
+
+          return TelegramService.sendRequest(text,pednum)
+          .then(function(response) {
+            var not ={
+              id:uuid.v4(),
+              notification:"SALE_TELEGRAM",
+              id_table:text.sale_id
+            }
+            Notifications.create(not)
+            .then(function (res) {
+              callback(res);
+            })
+          });
+        })
+      }else{
+        callback();
+      }
+
+    })
+    .catch(function (err) {
+      sails.log.info('err->',err);
+    })
+  }
 }
+

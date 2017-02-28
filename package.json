@@ -23,6 +23,7 @@
     "include-all": "^1.0.0",
     "mongodb": "^1.4.40",
     "node-schedule": "^1.2.0",
+    "node-telegram-bot-api": "^0.27.0",
     "node-uuid": "^1.4.7",
     "q": "^1.4.1",
     "rc": "1.0.1",

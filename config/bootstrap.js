@@ -15,12 +15,13 @@
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   var emailService = EmailService;
   var salesService = SalesService;
-  var minuteJob  = scheduler.scheduleJob('* * * * * *', function(){
+  var minuteJob  = scheduler.scheduleJob('*/5 * * * * *', function(){
     EmailService.send("Random text",function (err, result) {});
     // SalesService.requestReceived("asdasd",function (err,result) {});
     SalesService.requestAccepted("asdasd",function (err,result) {});
     SalesService.driverOnWay("asdasd",function (err,result) {});
     SalesService.finishedSale("asdasd",function (err,result) {});
+    SalesService.sendTelegram("asdasd",function (err,result) {});
   });
   cb();
 };
