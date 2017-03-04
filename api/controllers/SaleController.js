@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+
  module.exports = {
    create: function (req, res) {
     if (!req.body) {
@@ -78,9 +79,6 @@
     .then(function (result) {
       return res.send(result);
     });
-
   }
-
-
 };
 
