@@ -64,13 +64,15 @@ module.exports =  {
   },
   sendRequest:function (text,num) {
     console.log('zone->',text.zone);
-    var msgfu ="*ped n: "+num +"*"+
+    var msgfu =
     "\n*ITEM*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
-    "\n*Nome*: "+text.name+
+    "\n*PAG*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO 💰')+
     "\n*END*: "+(text.fulladdress!==null?text.fulladdress:text.address)+
     "\n*Fone*: "+text.phone+
-    "\n*PAG*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO 💰')+
-    "\n{" +text.saleid+"}";
+    "\n*ped n: "+num +"*"+
+    "\n*Nome*: "+text.name+
+
+    "\n\n\n{" +text.saleid+"}";
     return this.sendMessage(text.telegram, msgfu);
   }
 }
