@@ -19,7 +19,8 @@
    longSouth:{ type: 'string', required: true },
    active: {type: 'boolean',required: false, defaultsTo: true},
    slack:{ type: 'string', required: false },
-   telegram:{ type: 'string', required: false , defaultsTo:'-1001071922830'}
+   telegram:{ type: 'string', required: false , defaultsTo:'-1001071922830'},
+   schedule:{ type: 'string', required: false, defaultsTo:'{0:{start:0, end:0},1:{start:1, end:18},2:{start:1, end:18},3:{start:1, end:18},4:{start:1, end:18},5:{start:1, end:18},6:{start:0, end:0}}'}
  },
  prepareData: function(params) {
   var z = {};
