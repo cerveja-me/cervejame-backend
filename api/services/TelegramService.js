@@ -62,16 +62,21 @@ module.exports =  {
   sendMessage:function (chat, msg) {
     return bot.sendMessage(chat,msg,{parse_mode:'Markdown'});
   },
+  replaceall:function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+  },
   sendRequest:function (text,num) {
     console.log('zone->',text.zone);
+    var address = (text.fulladdress!==null?text.fulladdress:text.address);
     var msgfu =
     "\n*ITEM*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
     "\n*PAG*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO 💰')+
-    "\n*END*: "+(text.fulladdress!==null?text.fulladdress:text.address)+
+    "\n*END*: "+address+
+
     "\n*Fone*: "+text.phone+
     "\n*ped n: "+num +"*"+
     "\n*Nome*: "+text.name+
-
+    "\n\nhttp://api.cerveja.me/sale/accept/"+text.saleid+
     "\n\n\n{" +text.saleid+"}";
     return this.sendMessage(text.telegram, msgfu);
   }
