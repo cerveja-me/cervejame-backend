@@ -21,6 +21,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "messenger-bot": "^2.4.0",
     "mongodb": "^1.4.40",
     "node-schedule": "^1.2.0",
     "node-telegram-bot-api": "^0.27.0",

@@ -28,6 +28,7 @@
           Location.create(data)
           .then(function(location) {
             if(location.zone){
+              location.schedule=zones[0].schedule;
               Prodreg.find({zone:data.zone.id, active:true}).populate('product')
               .then(function (products) {
                 location.products = products;

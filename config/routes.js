@@ -44,6 +44,7 @@
   'get /sale/onway/:id':'SaleController.onWay',
   'get /sale/finished/:id':'SaleController.finished',
   'get /sale/finished/ratecostumer/:id/:rate':'SaleController.costumerRate',
+  'get /bot':'AuthController.botResponse',
   'get /auth': {view: 'homepage'},
   'get /costumer': {view: 'homepage'},
   'get /device': {view: 'homepage'},
@@ -53,6 +54,7 @@
   'get /product': {view: 'homepage'},
   'get /sale': {view: 'homepage'},
   'get /zone': {view: 'homepage'},
+
 
   /***************************************************************************
   *                                                                          *
