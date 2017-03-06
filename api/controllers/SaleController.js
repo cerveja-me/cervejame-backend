@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+ var requestify = require('requestify');
+ var Promise = require('bluebird');
 
  module.exports = {
    create: function (req, res) {
@@ -79,6 +81,29 @@
     .then(function (result) {
       return res.send(result);
     });
+  },
+
+  getOpenSales:function (req,res) {
+    var id = req.params.id;
+    if(id){
+      var query = "select s.createdat createdAt, s.onWayAt as onWayAt,s.finishedAt as finishedAt, s.serviceRate as rate,"+
+      " s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,c.phone as phone, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as address from sale s "+
+      "left join costumer c on s.costumer =c.id "+
+      "left join location l on s.location =l.id "+
+      "left join prodreg pr on s.prodreg = pr.id "+
+      "left join product p on pr.product = p.id "+
+      " WHERE "+
+      " (s.onWayAt is null or s.finishedAt is null or s.serviceRate is null)"+
+      " and s.prodreg in("+
+      " select pr.id from prodreg pr where pr.zone ='"+id+"') order by s.createdat;";
+      var queryAssync = Promise.promisify(Sale.query);
+      queryAssync(query)
+      .then(function (data) {
+        return res.send(data);
+      })
+    }else{
+      return res.send();
+    }
   }
 };
 

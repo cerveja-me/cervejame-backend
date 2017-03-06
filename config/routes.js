@@ -36,6 +36,8 @@
     view: 'homepage'
   },
   'post /auth/login' : 'AuthController.login',
+  'post /auth/user' : 'UserController.login',
+  'get /sale/openSales/:id':'SaleController.getOpenSales',
   'post /costumer/update':'CostumerController.update',
   'get /costumer/lastbuy/:id': 'CostumerController.lastBuy',
   'post /sale/sendfeedback':'SaleController.sendfeedback',
