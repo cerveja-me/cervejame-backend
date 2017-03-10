@@ -86,7 +86,7 @@
   getOpenSales:function (req,res) {
     var id = req.params.id;
     if(id){
-      var query = "select s.createdat createdAt, s.onWayAt as onWayAt,s.finishedAt as finishedAt, s.serviceRate as rate,"+
+      var query = "select s.aceptedAt as aceptedAt,s.createdat createdAt, s.onWayAt as onWayAt,s.finishedAt as finishedAt, s.serviceRate as rate,"+
       " s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,c.phone as phone, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as address from sale s "+
       "left join costumer c on s.costumer =c.id "+
       "left join location l on s.location =l.id "+
