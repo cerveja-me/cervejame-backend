@@ -41,8 +41,7 @@
     console.log('entrou aqui->',req.params.id);
     Sale.update({id:req.params.id},{aceptedAt:new Date()})
     .then(function (result) {
-      return res.send('<h1>PEDIDO ACEITO</h1>'+
-        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/onway/'+req.params.id+'">ENTREGAR</a>');
+      return res.send(result);
     })
   },
   onWay:function (req,res) {
