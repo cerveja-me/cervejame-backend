@@ -52,7 +52,7 @@ bot.on('message', (msg) => {
         bot.sendMessage(chatId, 'valeu anotei a nota dele!');
       })
     }else{
-      bot.sendMessage(chatId, "não entendi, use 'vi' para avisarmos o cliente que vc esta a caminho, ou a nota de um a cinco em numero '5'");
+      bot.sendMessage(chatId, "sempre responda o pedido, use 'vi' para avisarmos o cliente que vc esta a caminho, ou a nota de um a cinco em numero '5'");
     }
   }
   console.log('id',msg.chat.id);
