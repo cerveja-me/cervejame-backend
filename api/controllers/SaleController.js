@@ -71,7 +71,7 @@
     });
   },
   costumerRate:function (req,res) {
-    Sale.update({id:req.params.id},{costumerRate:req.params.rate})
+    Sale.update({id:req.params.id},{finishedAt:new Date(),costumerRate:req.params.rate})
     .then(function (result) {
       return res.send('<h1>Concluido</h1>');
     });
