@@ -37,7 +37,8 @@
       });
     }
   },
-  accept:function (req,res) {
+  acept:function (req,res) {
+    console.log('entrou aqui->',req.params.id);
     Sale.update({id:req.params.id},{aceptedAt:new Date()})
     .then(function (result) {
       return res.send('<h1>PEDIDO ACEITO</h1>'+

@@ -81,8 +81,7 @@ var send = function (text,callback) {
       " \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+
       ">\n*endereço*: "+(text.fulladdress!==null?text.fulladdress:text.address)+
       "\n*Fone*: "+text.phone+
-      "\n*PAGAMENTO*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO')+
-      "\n*local*:<http://api.cerveja.me/sale/accept/"+text.saleid+">";
+      "\n*PAGAMENTO*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO');
 
 
       return requestify.post(text.slack, {"text":msgfu})
