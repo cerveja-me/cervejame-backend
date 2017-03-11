@@ -47,7 +47,7 @@ bot.on('message', (msg) => {
         bot.sendMessage(chatId, 'beleza to avisando o cliente que já esta a caminho! depois me fala que nota ele merece :)');
       })
     }else if(msg.text ==='1' || msg.text ==='2' || msg.text ==='3' || msg.text ==='4' || msg.text ==='5'){
-      Sale.update({id:txt.substring(start+1,end)},{serviceRate:msg.text,finishedAt:new Date()})
+      Sale.update({id:txt.substring(start+1,end)},{costumerRate:msg.text,finishedAt:new Date()})
       .then(function (res) {
         bot.sendMessage(chatId, 'valeu anotei a nota dele!');
       })
