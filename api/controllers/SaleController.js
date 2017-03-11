@@ -93,7 +93,7 @@
       "left join prodreg pr on s.prodreg = pr.id "+
       "left join product p on pr.product = p.id "+
       " WHERE "+
-      " (s.onWayAt is null or s.finishedAt is null or s.serviceRate is null)"+
+      " (s.onWayAt is null or s.finishedAt is null or s.costumerRate is null)"+
       " and s.prodreg in("+
       " select pr.id from prodreg pr where pr.zone ='"+id+"') order by s.createdat;";
       var queryAssync = Promise.promisify(Sale.query);
