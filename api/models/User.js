@@ -24,6 +24,7 @@
         email:{type: 'string', required: true},
         password:{type: 'string', required: true},
         phone:{type: 'string', required: false},
+        push:{type: 'string', required: false},
         zone:{model:'zone',required:true}
     }
 };
