@@ -7,8 +7,7 @@ module.exports =  {
     var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
-    "where s.createdAt < (now()- interval 10 second) and " +
-    "s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_R_RECEIVED') limit 1;"
+    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_R_RECEIVED') limit 1;"
 
     var queryAssync = Promise.promisify(Sale.query);
     queryAssync(query)
@@ -35,8 +34,7 @@ module.exports =  {
     var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
-    "where  s.aceptedAt < (now()- interval 10 second) and " +
-    "s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_ACCEPTED') limit 1;"
+    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_ACCEPTED') limit 1;"
 
     var queryAssync = Promise.promisify(Sale.query);
     queryAssync(query)
