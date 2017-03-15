@@ -135,7 +135,7 @@ module.exports =  {
           message:text.amount +' cx de '+text.proname+' do '+text.name
         }
         if(text.push){
-          DeliverPushService.send(text.push,'android', data);
+          DeliverPushService.send(text.push,'ios', data);
         }
         var not ={
           id:uuid.v4(),
