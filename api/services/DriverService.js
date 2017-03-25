@@ -79,8 +79,8 @@ module.exports =  {
         for (i = 0; i < res.length; i++) {
           text=res[i];
           var data = {
-            title:'Pedido - DEV',
-            message:text.amount +' cx de '+text.proname+' do '+text.name
+            title:'Pedido',
+            message:text.amount +' cx de '+text.proname+' - '+text.name
           }
           if(text.push){
             DeliverPushService.send(text.push,text.device, data);
