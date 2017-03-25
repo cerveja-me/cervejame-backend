@@ -44,7 +44,7 @@
       return res.send(result);
     })
   },
-  onWay:function (req,res) {
+  onWay:function (req,res) {//remover após todos migrarem para o app
     Sale.update({id:req.params.id},{onWayAt:new Date()})
     .then(function (result) {
       Location.findOne({id:result[0].location})
@@ -56,6 +56,18 @@
           );
       })
 
+    });
+  },
+  onWayApp:function (req,res) {
+    Sale.update({id:req.body.sale},{onWayAt:new Date(),user:req.body.user})
+    .then(function (result) {
+      return res.send(result[0]);
+    });
+  },
+  finishSaleApp:function (req,res) {
+    Sale.update({id:req.body.sale},{finishedAt:new Date(),costumerRate:req.body.rate,user:req.body.user})
+    .then(function (result) {
+      return res.send(result[0]);
     });
   },
   finished:function (req,res) {
