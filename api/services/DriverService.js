@@ -36,23 +36,23 @@ module.exports =  {
             id:uuid.v4(),
             notification:"SALE_RECEIVED",
             id_table:text.sale_id
-          }
-          Notifications.create(not)
-          .then(function (res) {
+        }
+        Notifications.create(not)
+        .then(function (res) {
             requestify.post(text.slack, {"text": text.phone});
             callback(res);
-          })
-        });
-      }else{
+        })
+    });
+    }else{
         callback();
-      }
+    }
 
-    })
+})
     .catch(function (err) {
       sails.log.info('err->',err);
-    })
-  },
-  sendAppNotification : function (text,callback) {
+  })
+},
+sendAppNotification : function (text,callback) {
     var requestify = require('requestify');
     var Promise = require('bluebird');
 
@@ -78,21 +78,21 @@ module.exports =  {
         var data = {
           title:'Pedido',
           message:text.amount +' cx de '+text.proname+' do '+text.name
-        }
-        if(text.push){
+      }
+      if(text.push){
           DeliverPushService.send(text.push,'ios', data);
-        }
-        var not ={
+      }
+      var not ={
           id:uuid.v4(),
           notification:"SALE_RECEIVED_APP",
           id_table:text.sale_id
-        }
-        Notifications.create(not)
-        .then(function (res) {
+      }
+      Notifications.create(not)
+      .then(function (res) {
           callback(res);
-        })
-      };
-    });
-  }
+      })
+  };
+});
+}
 
 };
