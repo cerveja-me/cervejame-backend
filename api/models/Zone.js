@@ -20,7 +20,8 @@
    active: {type: 'boolean',required: false, defaultsTo: true},
    slack:{ type: 'string', required: false },
    telegram:{ type: 'string', required: false , defaultsTo:'-1001071922830'},
-   schedule:{ type: 'string', required: false}
+   schedule:{ type: 'string', required: false},
+   admin:{model:'user'}
  },
  prepareData: function(params) {
   var z = {};
