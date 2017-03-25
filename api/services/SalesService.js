@@ -144,6 +144,10 @@ module.exports =  {
                 notification:"SALE_TELEGRAM",
                 id_table:text.sale_id
               }
+              return Notifications.create(not)
+              .then(function (res) {
+                callback(res);
+              })
 
             });
 
