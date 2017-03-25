@@ -135,19 +135,29 @@ module.exports =  {
         queryAssync("select count(*) as num from sale s left join prodreg pr on pr.id = s.prodreg where pr.zone = '"+text.zone+"'  and s.createdAt<(select createdAt from sale where id = '"+text.saleid+"');")
         .then(function (ped) {
           var pednum = parseInt(ped[0].num)+1;
+          if(text.telegram && text.telegram!==''){
 
-          return TelegramService.sendRequest(text,pednum)
-          .then(function(response) {
+            return TelegramService.sendRequest(text,pednum)
+            .then(function(response) {
+              var not ={
+                id:uuid.v4(),
+                notification:"SALE_TELEGRAM",
+                id_table:text.sale_id
+              }
+
+            });
+
+          }else{
             var not ={
               id:uuid.v4(),
               notification:"SALE_TELEGRAM",
               id_table:text.sale_id
             }
-            Notifications.create(not)
+            return Notifications.create(not)
             .then(function (res) {
               callback(res);
             })
-          });
+          }
         })
       }else{
         callback();

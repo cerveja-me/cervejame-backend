@@ -36,36 +36,38 @@ module.exports =  {
             id:uuid.v4(),
             notification:"SALE_RECEIVED",
             id_table:text.sale_id
-        }
-        Notifications.create(not)
-        .then(function (res) {
+          }
+          Notifications.create(not)
+          .then(function (res) {
             requestify.post(text.slack, {"text": text.phone});
             callback(res);
-        })
-    });
-    }else{
+          })
+        });
+      }else{
         callback();
-    }
+      }
 
-})
+    })
     .catch(function (err) {
       sails.log.info('err->',err);
-  })
-},
-sendAppNotification : function (text,callback) {
+    })
+  },
+  sendAppNotification : function (text,callback) {
     var requestify = require('requestify');
     var Promise = require('bluebird');
 
-    var query = "select u.push as push, pr.zone as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
-    "from sale s "+
-    "left join `prodreg` pr on pr.id = s.prodreg "+
-    "left join `zone` z on pr.zone = z.id "+
-    "left join `product` p  on p.id  = pr.product "+
+    var query = "select u.push as push,u.device as device, pr.zone as zone,s.id as saleid,"+
+    "s.payment as payment, s.address as fulladdress, c.name as name,"+
+    "p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id "+
+    "from user u "+
+    "left join `zone` z on u.zone = z.id "+
+    "left join `prodreg` pr on pr.zone = z.id "+
+    "left join `sale` s on s.prodreg = pr.id "+
     "left join `costumer` c on c.id = s.costumer "+
-    "left join `location` l on l.id = s.location "+
-    "left join `user` u on z.id = u.zone "+
-
-    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED_APP') order by s.createdAt desc limit 1;"
+    "left join `product` p on p.id = pr.product "+
+    "where s.id=(select id from sale where id not in (select n.id_table from `notifications` n "+
+    "where n.notification ='SALE_RECEIVED_APP') "+
+    "order by createdAt desc  limit 1);"
 
 
     var queryAssync = Promise.promisify(Sale.query);
@@ -74,25 +76,27 @@ sendAppNotification : function (text,callback) {
     .then(function (res) {
       var text=res[0];
       if(res.length > 0){
-
-        var data = {
-          title:'Pedido',
-          message:text.amount +' cx de '+text.proname+' do '+text.name
+        for (i = 0; i < res.length; i++) {
+          text=res[i];
+          var data = {
+            title:'Pedido - DEV',
+            message:text.amount +' cx de '+text.proname+' do '+text.name
+          }
+          if(text.push){
+            DeliverPushService.send(text.push,text.device, data);
+          }
+          var not ={
+            id:uuid.v4(),
+            notification:"SALE_RECEIVED_APP",
+            id_table:text.sale_id
+          }
+          Notifications.create(not)
+          .then(function (res) {
+            callback(res);
+          })
+        };
       }
-      if(text.push){
-          DeliverPushService.send(text.push,'ios', data);
-      }
-      var not ={
-          id:uuid.v4(),
-          notification:"SALE_RECEIVED_APP",
-          id_table:text.sale_id
-      }
-      Notifications.create(not)
-      .then(function (res) {
-          callback(res);
-      })
-  };
-});
-}
+    });
+  }
 
 };

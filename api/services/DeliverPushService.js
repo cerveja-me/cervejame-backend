@@ -30,13 +30,6 @@ module.exports =  {
     }
   }
     //envia a notificação
-    fcm.send(message, function(err, response){
-      console.log('err->',err, 'response->',response);
-      if (err) {
-        console.log("Something has gone wrong!");
-      } else {
-        console.log("Successfully sent with response: ", response);
-      }
-    });
+    fcm.send(message, function(err, response){});
   }
 }

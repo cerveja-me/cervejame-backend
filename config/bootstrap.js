@@ -17,7 +17,7 @@
   var salesService = SalesService;
   var minuteJob  = scheduler.scheduleJob('*/5 * * * * *', function(){
     // EmailService.send("Random text",function (err, result) {});
-    //DriverService.sendAppNotification("Random text",function (err, result) {});
+    DriverService.sendAppNotification("Random text",function (err, result) {});
     // EmailService.sendAppNotification("Random text",function (err, result) {});
     // SalesService.requestReceived("asdasd",function (err,result) {});
     SalesService.requestAccepted("asdasd",function (err,result) {});
