@@ -20,13 +20,13 @@ module.exports =  {
     message.data={
       title: data.title,
       body: data.message,
-      soundname: "ringtone"
+      sound: "ringtone"
     }
   }else{
     message.notification={
       title: data.title,
       body: data.message,
-      soundname: "ringtone"
+      sound: "default"
     }
   }
     //envia a notificação
