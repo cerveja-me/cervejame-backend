@@ -21,6 +21,7 @@
     connection: 'awsMysqlServer',
     migrate: 'safe',
     hookTimeout: 40000
-  }
+},
+telegramToken : '377715440:AAGJycneuXpAuIbiCb-euAkA2F5MeO9GtIk'
 
 };

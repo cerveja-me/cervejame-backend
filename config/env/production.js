@@ -22,6 +22,8 @@
     migrate: 'safe',
     hookTimeout: 40000
   },
+  telegramToken : '277128655:AAEFfvSI22Oe7V-LXFSrffCHmgVlvjKPvEA',
+
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *

@@ -1,10 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 
-// replace the value below with the Telegram token you receive from @BotFather
-const token = '277128655:AAEFfvSI22Oe7V-LXFSrffCHmgVlvjKPvEA';
 
-// // development token
-// const token = '377715440:AAGJycneuXpAuIbiCb-euAkA2F5MeO9GtIk'
+const token = sails.config.telegramToken;
+
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});

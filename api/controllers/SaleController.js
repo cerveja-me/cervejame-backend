@@ -107,7 +107,7 @@
       " WHERE "+
       " (s.onWayAt is null or s.finishedAt is null or s.costumerRate is null)"+
       " and s.prodreg in("+
-      " select pr.id from prodreg pr where pr.zone ='"+id+"') order by s.createdat;";
+      " select pr.id from prodreg pr where pr.zone =(select zone from user where id='"+id+"')) order by s.createdat;";
       var queryAssync = Promise.promisify(Sale.query);
       queryAssync(query)
       .then(function (data) {
