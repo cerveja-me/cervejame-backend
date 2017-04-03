@@ -1,0 +1,37 @@
+
+
+
+<h3>olá <%=name%></h3>
+<h4>este é o seu relatorio mensal de vendas pelo cerveja.me</h4>
+<table>
+   <tr>
+       <th>Data Hr Pedido</th>
+       <th>Finalizado </th>
+       <th>tempo</th>
+       <th>Cliente</th>
+       <th>Produto</th>
+       <th>Descricao</th>
+       <th>Valor</th>
+       <th>QTDE</th>
+       <th>Total</th>
+
+
+   </tr>
+
+   <% orders.forEach(function(order) { %>
+   <tr>
+       <td><%= order.createdat %></td>
+       <td><%= order.finishedat %></td>
+       <td><%= order.time %></td>
+       <td><%= order.costumer %></td>
+       <td><%= order.product %></td>
+       <td><%= order.description %></td>
+       <td><%= order.unitvalue %></td>
+       <td><%= order.amount %></td>
+       <td><%= order.value %></td>
+   </tr>
+
+
+   <% }); %>
+
+</table>

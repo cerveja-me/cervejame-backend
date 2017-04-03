@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
+<head>
+  <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
 
-    <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
 
     <!--
         Stylesheets and Preprocessors
@@ -26,15 +42,15 @@
             + Change the order of your CSS files
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
-    -->
+          -->
 
-    <!--STYLES-->
-    <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
-  </head>
+          <!--STYLES-->
+          <link rel="stylesheet" href="/styles/importer.css">
+          <!--STYLES END-->
+        </head>
 
-  <body>
-    <%- body %>
+        <body>
+          <%- body %>
 
 
 
@@ -57,11 +73,11 @@
             + Use a different template engine (handlebars, jade, dust, etc.)
             + Internationalize your client-side templates using a server-side
               stringfile before they're served.
-    -->
+            -->
 
-    <!--TEMPLATES-->
-    
-    <!--TEMPLATES END-->
+            <!--TEMPLATES-->
+            
+            <!--TEMPLATES END-->
 
 
     <!--
@@ -85,10 +101,10 @@
           + Import scripts from other directories
           + Use a different preprocessor, like TypeScript
 
-    -->
+        -->
 
-    <!--SCRIPTS-->
-    <script src="/js/dependencies/sails.io.js"></script>
-    <!--SCRIPTS END-->
-  </body>
-</html>
+        <!--SCRIPTS-->
+        <script src="/js/dependencies/sails.io.js"></script>
+        <!--SCRIPTS END-->
+      </body>
+      </html>

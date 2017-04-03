@@ -97,6 +97,27 @@ module.exports =  {
         };
       }
     });
-  }
+  },
+  sendMonthReport : function (text,callback) {
+    var requestify = require('requestify');
+    var Promise = require('bluebird');
 
+    var query = "select s.createdAt - interval 3 hour as createdat, s.finishedAt - interval 3 hour as finishedat, timediff(s.finishedAt,s.createdAt) as 'time', "+
+    "c.name as costumer,p.name as product, p.description as description, s.unitvalue as unitvalue, s.amount as amount, s.value as value from sale s "+
+    "left join prodreg pr on pr.id=s.prodreg "+
+    "left join product p on p.id = pr.product "+
+    "left join costumer c on c.id= s.costumer "
+
+    "where pr.zone = '499dfe43-7712-438d-85bf-888b98c7c717' order by s.createdAt;"
+
+
+    var queryAssync = Promise.promisify(Sale.query);
+
+    queryAssync(query)
+    .then(function (res) {
+      EmailService.sendMonthReport({type:'monthReport',subject:'relatorio Mensal de vendas',from:'contas@cerveja.me',to:'jeferson@guardezi.com', name:'Jeferson', orders:res});
+      callback();
+    });
+
+  }
 };

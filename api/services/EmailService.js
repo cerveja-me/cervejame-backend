@@ -1,98 +1,54 @@
 
-var uuid = require('node-uuid');
-// var telegram = require('TelegramService');
+var helper = require('sendgrid').mail;
 
-module.exports =  {
-  send : function (text,callback) {
-    var requestify = require('requestify');
-    var Promise = require('bluebird');
+var ejs = require('ejs')
 
-    var query = "select pr.zone as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
-    "from sale s "+
-    "left join `prodreg` pr on pr.id = s.prodreg "+
-    "left join `zone` z on pr.zone = z.id "+
-    "left join `product` p  on p.id  = pr.product "+
-    "left join `costumer` c on c.id = s.costumer "+
-    "left join `location` l on l.id = s.location "+
-    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED') limit 1;"
-
-
-    var queryAssync = Promise.promisify(Sale.query);
-    queryAssync(query)
-    .then(function (res) {
-      var text=res[0];
-      if(res.length > 0){
-        var msgfu =  " *Pedido*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
-        "\n*Nome*: "+text.name+
-        " \n*Facebook*: <https://www.facebook.com/"+text.facebook_id+
-        ">\n*endereço*: "+(text.fulladdress!==null?text.fulladdress:text.address)+
-        "\n*Fone*: "+text.phone+
-        "\n*PAGAMENTO*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO');
-
-
-        return requestify.post(text.slack, {"text":msgfu})
-        .then(function(response) {
-          var not ={
-            id:uuid.v4(),
-            notification:"SALE_RECEIVED",
-            id_table:text.sale_id
-          }
-          Notifications.create(not)
-          .then(function (res) {
-            requestify.post(text.slack, {"text": text.phone});
-            callback(res);
-          })
-        });
+module.exports = {
+  sendMonthReport: function(options) {
+    sails.hooks.views.render(options.type,options,function (err,html) {
+      if(err){
+        console.log('error->', err);
       }else{
-        callback();
-      }
+        from_email = new helper.Email(options.from);
+        to_email = new helper.Email(options.to);
+        subject = options.subject;
+        content = new helper.Content("text/html", html);
+        mail = new helper.Mail(from_email, subject, to_email, content);
+        mail = new helper.Mail(from_email, subject, to_email, content);
 
-    })
-    .catch(function (err) {
-      sails.log.info('err->',err);
-    })
-  },
-  sendAppNotification : function (text,callback) {
-    var requestify = require('requestify');
-    var Promise = require('bluebird');
-
-    var query = "select u.push as push, pr.zone as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
-    "from sale s "+
-    "left join `prodreg` pr on pr.id = s.prodreg "+
-    "left join `zone` z on pr.zone = z.id "+
-    "left join `product` p  on p.id  = pr.product "+
-    "left join `costumer` c on c.id = s.costumer "+
-    "left join `location` l on l.id = s.location "+
-    "left join `user` u on z.id = u.zone "+
-
-    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED_APP') order by s.createdAt desc limit 1;"
-
-
-    var queryAssync = Promise.promisify(Sale.query);
-
-    queryAssync(query)
-    .then(function (res) {
-      var text=res[0];
-      if(res.length > 0){
-
-        var data = {
-          title:'Pedido',
-          message:text.amount +' cx de '+text.proname+' do '+text.name
-        }
-        if(text.push){
-          DeliverPushService.send(text.push,'ios', data);
-        }
-        var not ={
-          id:uuid.v4(),
-          notification:"SALE_RECEIVED_APP",
-          id_table:text.sale_id
-        }
-        Notifications.create(not)
-        .then(function (res) {
-          callback(res);
+        var sg = require('sendgrid')('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');
+        var request = sg.emptyRequest({
+          method: 'POST',
+          path: '/v3/mail/send',
+          body: mail.toJSON()
+        });
+        sg.API(request, function(error, response) {
+          console.log(response.statusCode);
+          console.log(response.body);
+          console.log(response.headers);
         })
-      };
-    });
-  }
 
+      }
+    })
+
+  }
 };
+
+// from_email = new helper.Email("test@example.com");
+// to_email = new helper.Email("test@example.com");
+// subject = "Sending with SendGrid is Fun";
+// content = new helper.Content("text/plain", "and easy to do anywhere, even with Node.js");
+// mail = new helper.Mail(from_email, subject, to_email, content);
+
+// var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+// var request = sg.emptyRequest({
+//   method: 'POST',
+//   path: '/v3/mail/send',
+//   body: mail.toJSON()
+// });
+
+// sg.API(request, function(error, response) {
+//   console.log(response.statusCode);
+//   console.log(response.body);
+//   console.log(response.headers);
+// })
