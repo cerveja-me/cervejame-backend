@@ -17,13 +17,13 @@
   var salesService = SalesService;
   var minuteJob  = scheduler.scheduleJob('*/5 * * * * *', function(){
 
-    DriverService.sendAppNotification("Random text",function (err, result) {});
+    DriverService.sendAppNotification("enviar notificacao para o entregador",function (err, result) {});
     // DriverService.sendMonthReport("Random text",function (err, result) {}); //mover para evento mensal
 
-    SalesService.requestAccepted("asdasd",function (err,result) {});
-    SalesService.driverOnWay("asdasd",function (err,result) {});
-    SalesService.finishedSale("asdasd",function (err,result) {});
-    SalesService.sendTelegram("asdasd",function (err,result) {});
+    SalesService.requestAccepted("o pedido foi aceito(visualizado)",function (err,result) {});
+    SalesService.driverOnWay("entrega a caminho",function (err,result) {});
+    SalesService.finishedSale("venda finalizada",function (err,result) {});
+    SalesService.sendTelegram("notificar o telegram",function (err,result) {});
   });
   cb();
 };
