@@ -124,7 +124,9 @@ module.exports =  {
     "left join `product` p  on p.id  = pr.product "+
     "left join `costumer` c on c.id = s.costumer "+
     "left join `location` l on l.id = s.location "+
-    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_TELEGRAM') order by s.createdAt limit 1;"
+    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_TELEGRAM') "+
+    "and timediff( now(),s.createdAt) >'00:02:00' and s.aceptedAt is null "+
+    "order by s.createdAt limit 1;"
 
 
     var queryAssync = Promise.promisify(Sale.query);
