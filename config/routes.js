@@ -40,6 +40,7 @@
   'get /sale/openSales/:id':'SaleController.getOpenSales',
   'post /costumer/update':'CostumerController.update',
   'get /costumer/lastbuy/:id': 'CostumerController.lastBuy',
+  'get /costumer/lastbuyOpen/:id': 'CostumerController.lastBuyOpen',
   'post /sale/sendfeedback':'SaleController.sendfeedback',
   'post /device/sendMessage':'DeviceController.pushMessage',
   // 'get /sale/accept/:id':'SaleController.accept',

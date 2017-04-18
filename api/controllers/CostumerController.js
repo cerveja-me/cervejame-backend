@@ -87,5 +87,19 @@
     .catch(function (err) {
       return res.send();
     })
+  },
+  lastBuyOpen: function (req, res) {
+    Sale.findOne({costumer:req.params.id,serviceRate:null, finishedAt:null}).populate('user')
+    .then(function (last) {
+      if(last){
+        return res.json(last);
+      }else{
+        return res.send();
+      }
+    })
+    .catch(function (err) {
+      return res.send();
+    })
   }
+
 }
