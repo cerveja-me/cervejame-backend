@@ -89,9 +89,7 @@
     })
   },
   lastBuyOpen: function (req, res) {
-    Sale.findOne({costumer:req.params.id,serviceRate:null, finishedAt:null})
-    .populate('user')
-    .populate('prodreg')
+    Sale.findOne({costumer:req.params.id,serviceRate:null, finishedAt:null}).populate('user').populate('prodreg')
     .then(function (last) {
       if(last){
         return res.json(last);
