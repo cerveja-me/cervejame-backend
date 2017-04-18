@@ -22,6 +22,7 @@
         device:{type:'string',required:true},
         name:{type: 'string', required: true},
         email:{type: 'string', required: true},
+        img:{type: 'string', required: false},
         password:{type: 'string', required: true},
         phone:{type: 'string', required: false},
         push:{type: 'string', required: false},
