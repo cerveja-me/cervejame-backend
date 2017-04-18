@@ -68,14 +68,7 @@ module.exports =  {
     var address = (text.fulladdress!==null?text.fulladdress:text.address);
     var msgfu =
     "\n*ITEM*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
-    "\n*PAG*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO 💰')+
-    "\n*END*: Verifique no aplicativo do entregador"+
-
-    "\n*Fone*: "+text.phone+
-    "\n*ped n: "+num +"*"+
-    "\n*Nome*: "+text.name+
-    "\n\nhttp://api.cerveja.me/sale/accept/"+text.saleid+
-    "\n\n\n{" +text.saleid+"}";
+    "\n*Verifique no aplicativo os detalhes do pedido*";
     return this.sendMessage(text.telegram, msgfu);
   }
 }
