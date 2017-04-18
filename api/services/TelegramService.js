@@ -69,7 +69,7 @@ module.exports =  {
     var msgfu =
     "\n*ITEM*: "+text.amount+" cx de "+text.proname+" ("+text.price+") = R$ "+text.value+
     "\n*PAG*: "+(text.payment==='card'?'CARTÃO':'DINHEIRO 💰')+
-    "\n*END*: "+address+
+    "\n*END*: Verifique no aplicativo do entregador"+
 
     "\n*Fone*: "+text.phone+
     "\n*ped n: "+num +"*"+
