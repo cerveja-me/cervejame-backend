@@ -13,6 +13,7 @@
     zone:{model:'zone',required:true},
     product:{model:'product',required:true},
     price : {type: 'float',required: true},
+    priority:{type: 'integer',required:false},
     active: {type: 'boolean',required: false, defaultsTo: true},
   },
   prepareData: function(params) {
