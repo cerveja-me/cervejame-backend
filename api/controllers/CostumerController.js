@@ -76,6 +76,7 @@
   },
 
   lastBuy: function (req, res) {
+    console.log('aquiiii');
     Sale.findOne({costumer:req.params.id,serviceRate:null, finishedAt:{ '!': null }})
     .then(function (last) {
       if(last){
