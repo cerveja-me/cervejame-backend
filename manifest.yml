@@ -5,5 +5,5 @@ applications:
   domain: mybluemix.net
   name: api-cerveja
   host: api-cerveja
-  disk_quota: 1024M
   command: node app.js
+  disk_quota: 1024M
