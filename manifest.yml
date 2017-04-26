@@ -1,9 +1,8 @@
 applications:
-  path: .
-  memory: 256M
+ - path: .
+  memory: 512M
   instances: 1
   domain: mybluemix.net
   name: api-cerveja
   host: api-cerveja
-  command: node app.js
   disk_quota: 1024M
