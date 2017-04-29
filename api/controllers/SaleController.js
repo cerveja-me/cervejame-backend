@@ -116,6 +116,30 @@
     }else{
       return res.send();
     }
+  },
+
+  getOpenSalesAdmin:function (req,res) {
+    var id = req.params.id;
+    if(id){
+      var query = "select time_to_sec(timediff(now(),s.createdAt))/60 as tempo, s.aceptedAt - interval 3 hour as aceptedAt,s.createdat - interval 3 hour as createdAt, s.onWayAt - interval 3 hour as onWayAt,s.finishedAt - interval 3 hour as finishedAt, s.costumerRate as rate,"+
+      " s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,c.phone as phone, p.name as proname,p.img as img, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as address, z.name as zona from sale s "+
+      "left join costumer c on s.costumer =c.id "+
+      "left join location l on s.location =l.id "+
+      "left join prodreg pr on s.prodreg = pr.id "+
+      "left join zone z on z.id = pr.zone "+
+      "left join product p on pr.product = p.id "+
+      " WHERE s.createdAt > (now() - interval 1 day) and "+
+      " (s.onWayAt is null or s.finishedAt is null or s.costumerRate is null) "+
+      "order by s.createdAt";
+      var queryAssync = Promise.promisify(Sale.query);
+      queryAssync(query)
+      .then(function (data) {
+        return res.send(data);
+      })
+    }else{
+      return res.send();
+    }
   }
+
 };
 
