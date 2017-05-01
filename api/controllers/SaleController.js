@@ -104,7 +104,7 @@
       "left join location l on s.location =l.id "+
       "left join prodreg pr on s.prodreg = pr.id "+
       "left join product p on pr.product = p.id "+
-      " WHERE "+
+      " WHERE s.createdat > now() - interval 3 hour and "+
       " (s.onWayAt is null or s.finishedAt is null or s.costumerRate is null)"+
       " and s.prodreg in("+
       " select pr.id from prodreg pr where pr.zone =(select zone from user where id='"+id+"')) order by s.createdat;";
