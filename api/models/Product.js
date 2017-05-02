@@ -16,6 +16,7 @@
    img:{ type: 'string', required: true },
    price : {type: 'float',required: true},
    sku:{ type: 'string', required: false },
+   cold: {type: 'boolean',required: false, defaultsTo: true},
  },
  prepareData: function(params) {
   var p = {};
