@@ -192,10 +192,54 @@ module.exports =  {
     queryAssync(query)
     .then(function (res) {
       if(res.length){
-        SlackService.send(res[0].amount+' '+res[0].proname+' em '+res[0].zone);
+        SlackService.send("order",res[0].amount+' '+res[0].proname+' em '+res[0].zone);
         var not ={
           id:uuid.v4(),
           notification:"SALE_GENERAL",
+          id_table:res[0].sale_id
+        }
+        Notifications.create(not)
+        .then(function (res) {
+          callback(res);
+        })
+      }else{
+        callback(res);
+      }
+    });
+  },
+
+
+  sendFeedbackSlack:function (text,callback) {
+    var Promise = require('bluebird');
+
+    var query = "select s.costumerRate,s.serviceRate,s.costumerComment, z.name as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
+    "from sale s "+
+    "left join `prodreg` pr on pr.id = s.prodreg "+
+    "left join `zone` z on pr.zone = z.id "+
+    "left join `product` p  on p.id  = pr.product "+
+    "left join `costumer` c on c.id = s.costumer "+
+    "left join `location` l on l.id = s.location "+
+    "where s.createdAt > '2017-04-01 00:00:00' and (s.serviceRate is not null or s.costumerComment is not null) and s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_FEEDBACK') "+
+    "order by s.createdAt limit 1;"
+
+
+    var queryAssync = Promise.promisify(Sale.query);
+    queryAssync(query)
+    .then(function (res) {
+      if(res.length){
+        rev = res[0];
+        var text="*Cidade*:"+rev.zone+
+        "\n*Pedido*:"+rev.amount+" de "+rev.proname+" = "+rev.value+
+        "\n*Cliente*:"+rev.name+
+        "\n*nota entregador*:"+rev.costumerRate+
+        "\n*nota Cliente*:"+rev.serviceRate+
+        "\n*comentario Cliente*:"+rev.costumerComment;
+
+
+        SlackService.send("rating",text);
+        var not ={
+          id:uuid.v4(),
+          notification:"SALE_FEEDBACK",
           id_table:res[0].sale_id
         }
         Notifications.create(not)

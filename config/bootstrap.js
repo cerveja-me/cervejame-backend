@@ -28,6 +28,7 @@
     SalesService.finishedSale("venda finalizada",function (err,result) {});
     SalesService.sendTelegram("notificar o telegram",function (err,result) {});
     SalesService.sendSlack("notificar o telegram",function (err,result) {});
+    SalesService.sendFeedbackSlack("notificar o telegram",function (err,result) {});
   });
   cb();
 };
