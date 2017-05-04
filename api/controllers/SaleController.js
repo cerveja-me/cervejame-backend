@@ -99,7 +99,7 @@
     var id = req.params.id;
     if(id){
       var query = "select time_to_sec(timediff(now(),s.createdAt))/60 as tempo, s.aceptedAt - interval 3 hour as aceptedAt,s.createdat - interval 3 hour as createdAt, s.onWayAt - interval 3 hour as onWayAt,s.finishedAt - interval 3 hour as finishedAt, s.costumerRate as rate,"+
-      " s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,c.phone as phone, p.name as proname,p.img as img, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as address from sale s "+
+      " s.id as saleid,s.payment as payment, s.address as address, c.name as name,c.phone as phone, p.name as proname,p.img as img, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as fulladdress from sale s "+
       "left join costumer c on s.costumer =c.id "+
       "left join location l on s.location =l.id "+
       "left join prodreg pr on s.prodreg = pr.id "+
@@ -122,7 +122,7 @@
     var id = req.params.id;
     if(id){
       var query = "select time_to_sec(timediff(now(),s.createdAt))/60 as tempo, s.aceptedAt - interval 3 hour as aceptedAt,s.createdat - interval 3 hour as createdAt, s.onWayAt - interval 3 hour as onWayAt,s.finishedAt - interval 3 hour as finishedAt, s.costumerRate as rate,"+
-      " s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,c.phone as phone, p.name as proname,p.img as img, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as address, z.name as zona from sale s "+
+      " s.id as saleid,s.payment as payment, s.address as address, c.name as name,c.phone as phone, p.name as proname,p.img as img, s.amount as amount,s.value as value,s.unitvalue as price, l.lat as lat, l.long as lng, l.address as fulladdress, z.name as zona from sale s "+
       "left join costumer c on s.costumer =c.id "+
       "left join location l on s.location =l.id "+
       "left join prodreg pr on s.prodreg = pr.id "+
