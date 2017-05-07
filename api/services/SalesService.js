@@ -212,7 +212,7 @@ module.exports =  {
   sendFeedbackSlack:function (text,callback) {
     var Promise = require('bluebird');
 
-    var query = "select s.costumerRate,s.serviceRate,s.costumerComment,timediff(s.finishedAt,s.createdAt) as time, z.name as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
+    var query = "select s.createdAt as day,s.costumerRate,s.serviceRate,s.costumerComment,timediff(s.finishedAt,s.createdAt) as time, z.name as zone,s.id as saleid,s.payment as payment, s.address as fulladdress, c.name as name,z.slack as slack,z.telegram as telegram,c.phone as phone,c.email as email,c.facebook_id as facebook_id, p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id, l.lat as lat, l.long as lng, l.address as address "+
     "from sale s "+
     "left join `prodreg` pr on pr.id = s.prodreg "+
     "left join `zone` z on pr.zone = z.id "+
@@ -230,6 +230,7 @@ module.exports =  {
         rev = res[0];
         var text="*Cidade*:"+rev.zone+
         "\n*Pedido*:"+rev.amount+" de "+rev.proname+" = "+rev.value+
+        "\n*Data*:"+rev.day+
         "\n*Cliente*:"+rev.name+
         "\n*Tempo*:"+rev.time+
         "\n*nota entregador*:"+rev.costumerRate+
