@@ -13,6 +13,9 @@
    push_token: { type: 'string', required: true },
    costumer:{model:'costumer',required:false},
    type:{ type: 'string', required: false},
+   model:{ type: 'string', required: false},
+   appVersion:{ type: 'string', required: false},
+   other:{ type: 'string', required: false}
  },
  prepareData: function(params) {
   var d = {};

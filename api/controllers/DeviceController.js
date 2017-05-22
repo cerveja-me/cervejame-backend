@@ -7,7 +7,27 @@
  var Promise = require('bluebird');
 
  module.exports = {
-   create: function (req, res) {
+  createV2:function (req,res) {
+    if (!req.body) {
+      return res.badRequest( 'you must pass all parameters: email name ');
+    }else{
+      var d=req.body
+      Device.findOrCreate({id:d.id},d)
+      .then(function (device) {
+        console.log('device->',device);
+        if(d.push_token==='empty'){
+          delete d.push_token;
+        }
+        Device.update({id:d.id},d)
+        .then(function (n) {
+          console.log('atualizado->',n);
+        })
+      })
+    }
+    console.log(req.body);
+    return res.json(req.body);
+  },
+  create: function (req, res) {
     // console.log('reqqq->>>',req.body);
     if (!req.body) {
       return res.badRequest( 'you must pass all parameters: email name ');
