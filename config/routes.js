@@ -52,6 +52,7 @@
   'get /sale/finished/:id':'SaleController.finished',
   'get /sale/finished/ratecostumer/:id/:rate':'SaleController.costumerRate',
   'get /bot':'AuthController.botResponse',
+  'post /bot':'AuthController.botResponse',
   'get /auth': {view: 'homepage'},
   'get /costumer': {view: 'homepage'},
   'get /device': {view: 'homepage'},
@@ -61,6 +62,9 @@
   'get /product': {view: 'homepage'},
   'get /sale': {view: 'homepage'},
   'get /zone': {view: 'homepage'},
+
+  //v2
+  'post /v2/device':'DeviceController.createV2',
 
 
   /***************************************************************************
