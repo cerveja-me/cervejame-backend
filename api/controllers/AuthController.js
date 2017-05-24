@@ -38,6 +38,7 @@
     })
   },
   botResponse:function (req,res) {
+    console.log('req->',req);
     if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === 'cerveja_me_facebook_bot') {
       console.log("Validating webhook");
