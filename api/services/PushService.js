@@ -16,7 +16,7 @@ module.exports =  {
       to: to
     }
   }
-  if(device==='android'){
+  if(device==='android' || device==='Android'){
     message.data={
       title: data.title,
       body: data.message
