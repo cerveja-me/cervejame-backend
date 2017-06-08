@@ -29,6 +29,7 @@
           .then(function(location) {
             if(location.zone){
               location.schedule=zones[0].schedule;
+              location.zonename=zones[0].name;
               Prodreg.find({where:{zone:data.zone.id, active:true},sort:'priority ASC'})
               .populate('product')
               .then(function (products) {
