@@ -24,6 +24,11 @@
         s.prodreg=productreg;
         s.unitvalue = productreg.price;
         s.value = s.unitvalue * s.amount;
+        if(params.voucher){
+          s.voucher=params.voucher;
+          s.discount = params.discount;
+          s.value = s.value- s.discount;
+        }
         Costumer.findOne({id:params.costumer})
         .then(function (cost) {
           s.costumer = cost;
