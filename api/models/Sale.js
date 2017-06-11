@@ -20,6 +20,7 @@
     prodreg:{model:'prodreg',required:true},
     costumer:{model:'costumer',required:true},
     value: {type: 'float',required: false},
+    discount: {type: 'float',required: false},
     unitvalue: {type: 'float',required: false},
     amount: {type: 'integer',required:false},
     serviceRate: {type: 'integer',required:false},
