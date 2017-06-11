@@ -36,3 +36,11 @@ select s.serviceRate,  s.costumerComment from sale s
 	where pr.zone ='cc90e83f-124b-4ecb-95cf-3f39ca001c35' -- Dourados
     and s.createdAt - interval 3 hour > '2017-05' and s.createdAt - interval 3 hour < '2017-06'
     order by s.costumerComment desc;
+
+-- total de vendas
+select sum(s.value)
+from sale s left join prodreg pr on pr.id = s.prodreg left join zone z on z.id = pr.zone left join product p on p.id = pr.product
+  left join user u on u.id = s.user left join costumer c on c.id = s.costumer
+   where z.id ='cc90e83f-124b-4ecb-95cf-3f39ca001c35' -- Dourados
+    and s.createdat - interval 4 HOUR > '2017-02'and s.createdat - interval 3 HOUR < '2017-06'
+   order by s.createdat;

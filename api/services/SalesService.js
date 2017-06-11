@@ -4,10 +4,10 @@ var uuid = require('node-uuid');
 
 module.exports =  {
   requestReceived: function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type, d.other from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
-    "where s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_R_RECEIVED') limit 1;"
+    "where s.createdAt >'2017-06-10' and s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_R_RECEIVED') limit 1;"
 
     var queryAssync = Promise.promisify(Sale.query);
     queryAssync(query)
@@ -20,7 +20,9 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,res[0].type,{title:"Pedido Recebido", message:"Recebemos o seu pedido. Aguarde a confirmação do entregador."});
+          if(res[0].other==='onesignal'){
+            PushService.sendOneSignal(res[0].push_token,"37cec3b3-e337-4239-9e98-5eaa6f087038");
+          }
           callback(result);
         })
       }
@@ -31,7 +33,7 @@ module.exports =  {
 
   },
   requestAccepted:function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type, d.other from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
     "where s.aceptedAt is not null and s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_ACCEPTED') limit 1;"
@@ -45,11 +47,16 @@ module.exports =  {
           notification:"SALE_ACCEPTED",
           id_table:res[0].sale_id
         }
+
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
-          callback(result);
-        })
+          if(res[0].other==='onesignal'){
+            PushService.sendOneSignal(res[0].push_token,"63dd0066-6400-4486-a482-c84aa397fff4");
+          }else{
+           PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
+         }
+         callback(result);
+       })
       }
     })
     .catch(function (err) {
@@ -59,7 +66,7 @@ module.exports =  {
   },
 
   driverOnWay:function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token, d.type from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type, d.other from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
     "where  s.onWayAt < (now()- interval 10 second) and " +
@@ -76,7 +83,11 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,res[0].type,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
+          if(res[0].other==='onesignal'){
+            PushService.sendOneSignal(res[0].push_token,"e086ddc0-493c-426c-ba0f-5e7039e4babf");
+          }else{
+            PushService.send(res[0].push_token,res[0].type,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
+          }
           callback(result);
         })
       }
@@ -87,7 +98,7 @@ module.exports =  {
 
   },
   finishedSale:function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.other from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
     "where  s.finishedAt < (now()- interval 90 second) and " +
@@ -104,7 +115,11 @@ module.exports =  {
         }
         Notifications.create(not)
         .then(function (result) {
-          PushService.send(res[0].push_token,res[0].type,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
+          if(res[0].other==='onesignal'){
+            PushService.sendOneSignal(res[0].push_token,"ba403c5d-042c-42ff-9545-e44b2e8ddfe8");
+          }else{
+            PushService.send(res[0].push_token,res[0].type,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
+          }
           callback(result);
         })
       }
