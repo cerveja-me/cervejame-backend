@@ -62,6 +62,10 @@
   'get /product': {view: 'homepage'},
   'get /sale': {view: 'homepage'},
   'get /zone': {view: 'homepage'},
+  'get /voucher': {view: 'homepage'},
+  'post /voucher/validate':'VoucherController.validate',
+  'post /voucher':{view: 'homepage'},
+  'post /voucher/create':'VoucherController.create',
 
   //v2
   'post /v2/device':'DeviceController.createV2',

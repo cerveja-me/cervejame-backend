@@ -17,7 +17,7 @@
         index: true,
         uuidv4: true
     },
-    code:{type: 'string', required: true},
+    code:{type: 'string',unique: true, required: true},
     costumer:{model:'costumer',required:false},
     value : {type: 'float',required: true},
     unit:{type: 'string', required: true, defaultsTo:'money'},
@@ -25,7 +25,8 @@
     user_rule:{type: 'string', required: true,defaultsTo:'USER_LIMIT_1'},
     endAt:{type:'datetime', required:false},
     active: {type: 'boolean',required: false, defaultsTo: true},
-    product:{model:'product',required:false}
+    product:{model:'product',required:false},
+    zone:{model:'product',required:false}
 }
 };
 
