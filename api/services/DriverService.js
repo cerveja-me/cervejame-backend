@@ -144,6 +144,45 @@ module.exports =  {
       }
     });
   },
+
+  callToAdmin : function (text,callback) {
+    var Promise = require('bluebird');
+
+    var query = "select u.phone,u.device as device, pr.zone as zone,s.id as saleid,"+
+    "s.payment as payment, s.address as fulladdress, c.name as name,"+
+    "p.name as proname, s.amount as amount,s.value as value,s.unitvalue as price, s.id as sale_id "+
+    "from user u "+
+    "left join `zone` z on u.id = z.admin "+
+    "left join `prodreg` pr on pr.zone = z.id "+
+    "left join `sale` s on s.prodreg = pr.id "+
+    "left join `costumer` c on c.id = s.costumer "+
+    "left join `product` p on p.id = pr.product "+
+    "where timediff( now(),s.createdAt) > '00:05:00' and s.aceptedAt is null"+
+    " AND s.createdAt>'2017-06-13' AND s.id not in (select n.id_table from `notifications` n where n.notification ='CALLED_FIVE_MINUTES') limit 1";
+
+    var queryAssync = Promise.promisify(Sale.query);
+
+    queryAssync(query)
+    .then(function (res) {
+      var text=res[0];
+      if(res.length > 0){
+        for (i = 0; i < res.length; i++) {
+          text=res[i];
+          TwilioService.call(text.phone);
+          var not ={
+            id:uuid.v4(),
+            notification:"CALLED_FIVE_MINUTES",
+            id_table:text.sale_id
+          }
+          Notifications.create(not)
+          .then(function (res) {
+            callback(res);
+          })
+        };
+      }
+    });
+  },
+
   sendAppNotificationFiveMinutesNoAcept : function (text,callback) {
     var requestify = require('requestify');
     var Promise = require('bluebird');

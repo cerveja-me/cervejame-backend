@@ -23,6 +23,7 @@
     DriverService.sendAppNotificationTwoMinutesNoAcept("2 minutos sem resposta",function (err, result) {});
     DriverService.sendAppNotificationFiveMinutesNoAcept("5 minutos sem resposta",function (err, result) {});
     DriverService.sendAppNotificationTenMinutesNoAcept("10 minutos sem resposta",function (err, result) {});
+    // DriverService.callToAdmin("Liga pro caboclo",function (err,result) {});
     SalesService.requestReceived("o pedido foi aceito(visualizado)",function (err,result) {});
     SalesService.requestAccepted("o pedido foi aceito(visualizado)",function (err,result) {});
     SalesService.driverOnWay("entrega a caminho",function (err,result) {});
