@@ -1,6 +1,6 @@
 
 var Promise = require('bluebird');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 module.exports =  {
   requestReceived: function (text,callback) {

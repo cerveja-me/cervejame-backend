@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing auths
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
- var uuid = require('node-uuid');
+ var uuid = require('uuid');
 
  module.exports = {
    login:function (req,res) {

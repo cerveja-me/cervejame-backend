@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
- var uuid = require('node-uuid');
+ var uuid = require('uuid');
  var Promise = require('bluebird');
  module.exports = {
    create: function (req, res) {

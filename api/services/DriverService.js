@@ -1,5 +1,5 @@
 
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 // var telegram = require('TelegramService');
 
 module.exports =  {
