@@ -6,7 +6,7 @@ module.exports =  {
     call: function (number) {
         console.log('calling to -> ',number);
         client.calls.create({
-            url: "http://demo.twilio.com/docs/voice.xml",
+            url: "https://delicious-spot-9578.twil.io/assets/voice.xml",
             to: number,
             from: "+5511930054332"
         }, function(err, call) {

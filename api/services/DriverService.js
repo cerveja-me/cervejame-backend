@@ -111,7 +111,7 @@ module.exports =  {
     "left join `sale` s on s.prodreg = pr.id "+
     "left join `costumer` c on c.id = s.costumer "+
     "left join `product` p on p.id = pr.product "+
-    "where timediff( now(),s.createdAt) > '00:02:00' and s.aceptedAt is null"+
+    "where timediff( now(),s.createdAt) > '00:00:30' and s.aceptedAt is null"+
     " AND s.id=(select id from sale where id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED_APP_TWO') "+
     "order by createdAt desc  limit 1);"
 
@@ -196,7 +196,7 @@ module.exports =  {
     "left join `sale` s on s.prodreg = pr.id "+
     "left join `costumer` c on c.id = s.costumer "+
     "left join `product` p on p.id = pr.product "+
-    "where timediff( now(),s.createdAt) > '00:05:00' and s.aceptedAt is null"+
+    "where timediff( now(),s.createdAt) > '00:01:00' and s.aceptedAt is null"+
     " AND s.id=(select id from sale where id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED_APP_FIVE') "+
     "order by createdAt desc  limit 1);"
 
@@ -242,7 +242,7 @@ module.exports =  {
     "left join `sale` s on s.prodreg = pr.id "+
     "left join `costumer` c on c.id = s.costumer "+
     "left join `product` p on p.id = pr.product "+
-    "where timediff( now(),s.createdAt) > '00:10:00' and s.aceptedAt is null"+
+    "where timediff( now(),s.createdAt) > '00:03:00' and s.aceptedAt is null"+
     " AND s.id=(select id from sale where id not in (select n.id_table from `notifications` n where n.notification ='SALE_RECEIVED_APP_TEN') "+
     "order by createdAt desc  limit 1);"
 
