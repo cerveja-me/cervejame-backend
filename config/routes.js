@@ -66,7 +66,7 @@
   'post /voucher/validate':'VoucherController.validate',
   'post /voucher':{view: 'homepage'},
   'post /voucher/create':'VoucherController.create',
-
+  'get /proddetails/:id':'ProdregController.getDetails',
   //v2
   'post /v2/device':'DeviceController.createV2',
 

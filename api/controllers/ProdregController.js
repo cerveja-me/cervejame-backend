@@ -37,6 +37,12 @@
         return res.json(error);
       });
     }
+  },
+  getDetails: function (req, res) {
+    Prodreg.findOne({id:req.params.id}).populate('product')
+    .then(pr=>{
+      return res.json(pr);
+    })
   }
 }
 
