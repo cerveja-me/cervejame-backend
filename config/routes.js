@@ -67,10 +67,9 @@
   'post /voucher':{view: 'homepage'},
   'post /voucher/create':'VoucherController.create',
   'get /proddetails/:id':'ProdregController.getDetails',
-
   'get /prodreg/:zone': 'ProdregController.getAvailableProducts',
   //v2
-  'post /v2/device':'DeviceController.createV2',
+  'post /v2/device':'DeviceController.createV2'
 
 
   /***************************************************************************
