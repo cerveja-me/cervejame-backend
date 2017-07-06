@@ -55,7 +55,6 @@
     if (!req.body) {
       return res.badRequest('you must pass all parameters');
     } else{
-      // console.log('update->',req.body);
       Prodreg.update({id:req.body.id},{active:req.body.active})
       .then(function (result) {
         return res.send(result);
