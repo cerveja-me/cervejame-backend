@@ -61,7 +61,6 @@
         return res.send(result);
       })
       .catch(function (err) {
-        // console.log('err-> ',err);
       })
     }
   }
