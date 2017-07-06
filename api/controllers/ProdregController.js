@@ -43,6 +43,13 @@
     .then(pr=>{
       return res.json(pr);
     })
+  },
+  getAvailableProducts: function (req, res) {
+    Prodreg.find({where:{zone:req.params.zone},sort:'active ASC'})
+    .populate('product')
+    .then(function (products) {
+      return res.json(products);
+    })
   }
 }
 
