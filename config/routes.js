@@ -68,6 +68,7 @@
   'post /voucher/create':'VoucherController.create',
   'get /proddetails/:id':'ProdregController.getDetails',
   'get /prodreg/:zone': 'ProdregController.getAvailableProducts',
+  'post /prodreg/updateStatus':'ProdregController.updateStatus',
   //v2
   'post /v2/device':'DeviceController.createV2'
 

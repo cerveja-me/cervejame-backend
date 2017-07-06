@@ -45,11 +45,25 @@
     })
   },
   getAvailableProducts: function (req, res) {
-    Prodreg.find({where:{zone:req.params.zone},sort:'active ASC'})
+    Prodreg.find({where:{zone:req.params.zone},sort:'active DESC'})
     .populate('product')
     .then(function (products) {
       return res.json(products);
     })
+  },
+  updateStatus: function (req, res) {
+    if (!req.body) {
+      return res.badRequest('you must pass all parameters');
+    } else{
+      // console.log('update->',req.body);
+      Prodreg.update({id:req.body.id},{active:req.body.active})
+      .then(function (result) {
+        return res.send(result);
+      })
+      .catch(function (err) {
+        // console.log('err-> ',err);
+      })
+    }
   }
 }
 
