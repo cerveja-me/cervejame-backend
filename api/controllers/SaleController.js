@@ -91,7 +91,6 @@
       return res.send();
     }
   },
-
   getOpenSalesAdmin:function (req,res) {
     var id = req.params.id;
     if(id){
