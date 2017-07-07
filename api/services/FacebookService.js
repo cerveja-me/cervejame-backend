@@ -1,29 +1,29 @@
-const http = require('http')
-const Bot = require('messenger-bot')
+// const http = require('http')
+// const Bot = require('messenger-bot')
 
-let bot = new Bot({
-  token: 'EAAEHirZBZAS58BADLNd6D4EoH7EzBTRWjYI5pOujdeNf2EvVY1nLq99kMD8FZBgJiC4KhiZBVyr95vOlh4qQ2Ni4e5y4UGSClZAYPpr0Nur1gOkRh4TkUQSx21zLZA0S5gvZAZBvGjLef8EFY8KRyDZA0nxOJdPZCZAG2lxBkVe8vva8QZDZD',
-  verify: 'cerveja_me_facebook_bot',
-  app_secret: '542a29c7ca35a5ea33d8bb2e1816bf2a'
-})
+// let bot = new Bot({
+//   token: 'EAAEHirZBZAS58BADLNd6D4EoH7EzBTRWjYI5pOujdeNf2EvVY1nLq99kMD8FZBgJiC4KhiZBVyr95vOlh4qQ2Ni4e5y4UGSClZAYPpr0Nur1gOkRh4TkUQSx21zLZA0S5gvZAZBvGjLef8EFY8KRyDZA0nxOJdPZCZAG2lxBkVe8vva8QZDZD',
+//   verify: 'cerveja_me_facebook_bot',
+//   app_secret: '542a29c7ca35a5ea33d8bb2e1816bf2a'
+// })
 
-bot.on('error', (err) => {
-  console.log(err.message)
-})
+// bot.on('error', (err) => {
+//   console.log(err.message)
+// })
 
-bot.on('message', (payload, reply) => {
-  console.log('payload->',payload);
-  let text = payload.message.text
+// bot.on('message', (payload, reply) => {
+//   console.log('payload->',payload);
+//   let text = payload.message.text
 
-  bot.getProfile(payload.sender.id, (err, profile) => {
-    if (err) throw err
+//   bot.getProfile(payload.sender.id, (err, profile) => {
+//     if (err) throw err
 
-      reply({ text }, (err) => {
-        if (err) throw err
-          console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
-      })
-  })
-})
+//       reply({ text }, (err) => {
+//         if (err) throw err
+//           console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
+//       })
+//   })
+// })
 
 // location = function (payload, reply) {
 //   reply({ "attachment": {
@@ -143,5 +143,5 @@ bot.on('message', (payload, reply) => {
 //   reply({ text: 'hey!'}, (err, info) => {})
 // })
 
-http.createServer(bot.middleware()).listen(3000)
-console.log('Echo bot server running at port 3000.')
+//http.createServer(bot.middleware()).listen(3000)
+//console.log('Echo bot server running at port 3000.')
