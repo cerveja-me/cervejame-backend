@@ -49,20 +49,6 @@
       return res.send(result);
     })
   },
-  onWay:function (req,res) {//remover após todos migrarem para o app
-    Sale.update({id:req.params.id},{onWayAt:new Date()})
-    .then(function (result) {
-      Location.findOne({id:result[0].location})
-      .then(function (local) {
-        return res.send(''+
-          '<a style="font-size: 106px;" href="http://waze.to/?ll='+local.lat+','+local.long+'&navigate=yes/">WAZE</a> <br><br>'+
-          '<a style="font-size: 106px;" href="http://maps.google.com/maps?daddr='+local.lat+','+local.long+'&ll=">MAPS</a> <br><br>'+
-          '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/'+req.params.id+'">CONCLUIR</a> <br>'
-          );
-      })
-
-    });
-  },
   onWayApp:function (req,res) {
     Sale.update({id:req.body.sale},{onWayAt:new Date(),user:req.body.user})
     .then(function (result) {

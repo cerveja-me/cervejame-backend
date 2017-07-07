@@ -44,8 +44,6 @@
   'get /costumer/lastbuyOpen/:id': 'CostumerController.lastBuyOpen',
   'post /sale/sendfeedback':'SaleController.sendfeedback',
   'post /device/sendMessage':'DeviceController.pushMessage',
-  // 'get /sale/accept/:id':'SaleController.accept',
-  'get /sale/acc/:id':'SaleController.acept',
   'get /sale/onway/:id':'SaleController.onWay',
   'post /sale/onway':'SaleController.onWayApp',
   'post /sale/finish':'SaleController.finishSaleApp',
