@@ -70,29 +70,13 @@
     });
   },
   finishSaleApp:function (req,res) {
-    Sale.update({id:req.body.sale},{finishedAt:new Date(),costumerRate:req.body.rate,user:req.body.user})
+    console.log('finalizar->',req.body);
+    Sale.update({id:req.body.sale},{finishedAt:new Date(),costumerRate:req.body.rate,user:req.body.user,serviceComment:req.body.comment})
     .then(function (result) {
       return res.send(result[0]);
     });
   },
-  finished:function (req,res) {
-    Sale.update({id:req.params.id},{finishedAt:new Date()})
-    .then(function (result) {
-      return res.send('<h1>AVALIAR CLIENTE</h1>'+
-        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/1">NOTA 1</a> <br><br>'+
-        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/2">NOTA 2</a> <br><br>'+
-        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/3">NOTA 3</a> <br><br>'+
-        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/4">NOTA 4</a> <br><br>'+
-        '<a style="font-size: 106px;" href="http://api.cerveja.me/sale/finished/ratecostumer/'+req.params.id+'/5">NOTA 5</a> <br><br>'
-        );
-    });
-  },
-  costumerRate:function (req,res) {
-    Sale.update({id:req.params.id},{finishedAt:new Date(),costumerRate:req.params.rate})
-    .then(function (result) {
-      return res.send('<h1>Concluido</h1>');
-    });
-  },
+
   sendfeedback:function (req, res) {
     Sale.update({id:req.body.id},{serviceRate:req.body.rate,costumerComment:req.body.comment})
     .then(function (result) {

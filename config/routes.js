@@ -49,8 +49,6 @@
   'get /sale/onway/:id':'SaleController.onWay',
   'post /sale/onway':'SaleController.onWayApp',
   'post /sale/finish':'SaleController.finishSaleApp',
-  'get /sale/finished/:id':'SaleController.finished',
-  'get /sale/finished/ratecostumer/:id/:rate':'SaleController.costumerRate',
   'get /bot':'AuthController.botResponse',
   'post /bot':'AuthController.botResponse',
   'get /auth': {view: 'homepage'},

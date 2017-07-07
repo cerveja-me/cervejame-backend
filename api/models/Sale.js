@@ -24,9 +24,10 @@
     unitvalue: {type: 'float',required: false},
     amount: {type: 'integer',required:false},
     serviceRate: {type: 'integer',required:false},
+    serviceComment:{type: 'string', required: false},
     costumerRate: {type: 'integer',required:false},
     costumerComment:{type: 'string', required: false},
     user:{model:'user',required:false},
     voucher:{model:'voucher',required:false}
-}
+  }
 };
