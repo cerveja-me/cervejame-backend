@@ -69,7 +69,6 @@
       return res.send(result);
     });
   },
-
   getOpenSales:function (req,res) {
     var id = req.params.id;
     if(id){
