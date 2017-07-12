@@ -31,5 +31,7 @@ module.exports =  {
   }
     //envia a notificação
     fcm.send(message, function(err, response){});
+  },
+  sendOneSignal: function (to, device, message) {
   }
 }

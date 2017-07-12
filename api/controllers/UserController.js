@@ -6,27 +6,26 @@
  */
 
  module.exports = {
-     login:function (req,res) {
-        var data  = req.body;
-        console.log('data->',data);
-        User.findOne({email:data.email, password:data.password})
-        .then(function (user) {
-            console.log('user->',user);
-            if(user){
-                User.update({id:user.id},{device:data.device,push:data.push})
-                .then(function (u) {
-                    var us= u[0];
-                    delete us.password;
-                    delete us.device;
-                    delete us.push;
-                    return res.json(us);
-                });
+   login:function (req,res) {
+    var data  = req.body;
 
-            }else{
-                return res.json({err:'WRONG_USER'})
-            }
-        })
-    }
+    User.findOne({email:data.email, password:data.password})
+    .then(function (user) {
+      console.log('user->',user);
+      if(user){
+        User.update({id:user.id},{device:data.device,push:data.push})
+        .then(function (u) {
+          var us= u[0];
+          delete us.password;
+          delete us.device;
+          return res.json(us);
+        });
+
+      }else{
+        return res.json({err:'WRONG_USER'})
+      }
+    })
+  }
 
 };
 
