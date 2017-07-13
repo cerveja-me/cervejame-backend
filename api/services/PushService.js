@@ -42,6 +42,7 @@ module.exports =  {
       }
     });
   },
+
   sendOneSignal: function (to, template) {
     $onesignal.post('notifications',
     {
