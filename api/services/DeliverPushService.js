@@ -9,7 +9,6 @@ $onesignal.setup({api_key: 'MmQwMTNjZTQtNGRlOC00NTQ4LWIzMjgtOWY3MDQyMWRjOWQ1'});
 
 module.exports =  {
   send: function (to, device,message) {
-    console.log('enviar para -> ',device,message);
     if(device=='onesignal'){
       this.sendOneSignal(to,device,message);
     }else{
@@ -48,8 +47,9 @@ module.exports =  {
     $onesignal.post('notifications',
     {
       app_id:"2c98ff23-918f-4620-939c-ebae678da341",
-      headings: {en: 'Pedido'},
-      contents: {en: message},
+      headings: {en: message.title},
+      contents: {en: message.message},
+      data:{action:'new_order'},
       include_player_ids: [to]
     }, function (errors, data) {
       console.log(errors, data);
