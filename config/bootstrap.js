@@ -15,7 +15,7 @@
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   var emailService = EmailService;
   var salesService = SalesService;
-  var minuteJob  = scheduler.scheduleJob('*/5 * * * * *', function(){
+  var minuteJob  = scheduler.scheduleJob('* * * * * *', function(){
 
 
     DriverService.sendAppNotification("enviar notificacao para o entregador",function (err, result) {});
