@@ -1,7 +1,7 @@
 {
   "name": "cervejame-backend",
   "private": true,
-  "version": "1.0",
+  "version": "0.2.9",
   "description": "a Sails application",
   "keywords": [],
   "author": "guardezi",
