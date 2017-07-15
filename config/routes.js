@@ -65,7 +65,8 @@
   'get /prodreg/:zone': 'ProdregController.getAvailableProducts',
   'post /prodreg/updateStatus':'ProdregController.updateStatus',
   //v2
-  'post /v2/device':'DeviceController.createV2'
+  'post /v2/device':'DeviceController.createV2',
+  'get /sale/acc/:id':'SaleController.acept',
 
 
   /***************************************************************************
