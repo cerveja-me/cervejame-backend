@@ -22,6 +22,8 @@ module.exports =  {
         .then(function (result) {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"37cec3b3-e337-4239-9e98-5eaa6f087038");
+          }else{
+            FacebookBot.send(res[0].push_token,"Feito! Recebemos seu pedido. Agora é só aguardar a confirmação do nosso entregador. Nós vamos te avisar por aqui.","received");
           }
           callback(result);
         })
@@ -52,6 +54,8 @@ module.exports =  {
         .then(function (result) {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"63dd0066-6400-4486-a482-c84aa397fff4");
+          } else if(res[0].other==='facebook'){
+            FacebookBot.send(res[0].push_token,"Seu pedido foi aceito. Já já sairá para entrega.","accepted");
           }else{
            PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
          }
@@ -66,9 +70,10 @@ module.exports =  {
   },
 
   driverOnWay:function (text,callback) {
-    var query = "select s.id as sale_id, d.push_token, d.type, d.other from sale s "+
+    var query = "select s.id as sale_id, d.push_token, d.type, d.other, u.name as 'driver' from sale s "+
     "left join location l on l.id = s.location "+
     "left join device d on d.id = l.device "+
+    "left join user u on u.id = s.user "+
     "where  s.onWayAt < (now()- interval 10 second) and " +
     "s.id not in (select n.id_table from `notifications` n where n.notification ='SALE_ONWAY') limit 1;"
 
@@ -85,6 +90,8 @@ module.exports =  {
         .then(function (result) {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"e086ddc0-493c-426c-ba0f-5e7039e4babf");
+          }else if(res[0].other==='facebook'){
+            FacebookBot.send(res[0].push_token,"Nosso entregador "+res[0].driver+" saiu para entregar seu pedido.","on_way");
           }else{
             PushService.send(res[0].push_token,res[0].type,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
           }
@@ -117,6 +124,8 @@ module.exports =  {
         .then(function (result) {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"ba403c5d-042c-42ff-9545-e44b2e8ddfe8");
+          }else if(res[0].other==='facebook'){
+            FacebookBot.send(res[0].push_token,"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega.");
           }else{
             PushService.send(res[0].push_token,res[0].type,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
           }
