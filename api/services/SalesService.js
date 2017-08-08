@@ -57,7 +57,7 @@ module.exports =  {
           } else if(res[0].other==='facebook'){
             FacebookBot.send(res[0].push_token,"Seu pedido foi aceito. Já já sairá para entrega.");
           }else{
-           PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
+            PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
          }
          callback(result);
        })
@@ -125,7 +125,7 @@ module.exports =  {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"ba403c5d-042c-42ff-9545-e44b2e8ddfe8");
           }else if(res[0].other==='facebook'){
-            FacebookBot.send(res[0].push_token,"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega.");
+            FacebookBot.send(res[0].push_token,"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega.","delivered");
           }else{
             PushService.send(res[0].push_token,res[0].type,{title:"Cerveja entregue", message:"Sua cerveja foi entregue. Foi tudo bem com seu pedido? Avalie a experiência da sua entrega."});
           }
