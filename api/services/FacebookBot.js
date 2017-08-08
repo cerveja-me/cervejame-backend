@@ -7,7 +7,7 @@ var url ='';
 if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
   url = 'http://localhost:5000/sendnotification';
 }else{
-  url = 'https://dc10c4c0.ngrok.io/sendnotification';
+  url = 'https://cervejame-bot.herokuapp.com/';
 }
 
 module.exports =  {
