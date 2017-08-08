@@ -23,7 +23,7 @@ module.exports =  {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"37cec3b3-e337-4239-9e98-5eaa6f087038");
           }else{
-            FacebookBot.send(res[0].push_token,"Feito! Recebemos seu pedido. Agora é só aguardar a confirmação do nosso entregador. Nós vamos te avisar por aqui.","received");
+            FacebookBot.send(res[0].push_token,"Feito! Recebemos seu pedido. Agora é só aguardar a confirmação do nosso entregador. Nós vamos te avisar por aqui.");
           }
           callback(result);
         })
@@ -55,7 +55,7 @@ module.exports =  {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"63dd0066-6400-4486-a482-c84aa397fff4");
           } else if(res[0].other==='facebook'){
-            FacebookBot.send(res[0].push_token,"Seu pedido foi aceito. Já já sairá para entrega.","accepted");
+            FacebookBot.send(res[0].push_token,"Seu pedido foi aceito. Já já sairá para entrega.");
           }else{
            PushService.send(res[0].push_token,res[0].type,{title:"Pedido Confirmado", message:"Seu pedido foi aceito por um de nossos entregadores. Calma aí que tá chegando."});
          }
@@ -91,7 +91,7 @@ module.exports =  {
           if(res[0].other==='onesignal'){
             PushService.sendOneSignal(res[0].push_token,"e086ddc0-493c-426c-ba0f-5e7039e4babf");
           }else if(res[0].other==='facebook'){
-            FacebookBot.send(res[0].push_token,"Nosso entregador "+res[0].driver+" saiu para entregar seu pedido.","on_way");
+            FacebookBot.send(res[0].push_token,"Nosso entregador "+res[0].driver+" saiu para entregar seu pedido.");
           }else{
             PushService.send(res[0].push_token,res[0].type,{title:"Cerveja a caminho", message:"Sua cerveja gelada já está a caminho. Fica esperto aí!"});
           }
