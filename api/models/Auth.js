@@ -5,12 +5,12 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
- module.exports = {
+module.exports = {
   autoPK: false,
   attributes: {
-    id: { type: 'string', required: true,  primaryKey: true},
-    device:{model:'device',required:true},
-    costumer:{model:'costumer',required:true}
+    id: {type: 'string', required: true, primaryKey: true},
+    device: {model: 'device', required: true},
+    costumer: {model: 'costumer', required: true}
   }
 };
 

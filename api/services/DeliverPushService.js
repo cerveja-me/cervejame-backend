@@ -7,53 +7,54 @@ var $onesignal = require('onesignal-plus').$instance;
 
 $onesignal.setup({api_key: 'MmQwMTNjZTQtNGRlOC00NTQ4LWIzMjgtOWY3MDQyMWRjOWQ1'});
 
-module.exports =  {
-  send: function (to, device,message) {
-    if(device=='onesignal'){
-      this.sendOneSignal(to,device,message);
-    }else{
-      this.sendOld(to,device,message);
+module.exports = {
+  send: function (to, device, message) {
+    if (device == 'onesignal') {
+      this.sendOneSignal(to, device, message);
+    } else {
+      this.sendOld(to, device, message);
     }
   },
-  sendOld: function (to, device,data) {
+  sendOld: function (to, device, data) {
 
-    var message={};
-    if(Array.isArray(to)){
-      message={
-        registration_ids:to
-      }
-    }else{
-     message= {
-      to: to
+    var message = {};
+    if (Array.isArray(to)) {
+      message = {
+        registration_ids: to
+      };
+    } else {
+      message = {
+        to: to
+      };
     }
-  }
-  if(device==='android'){
-    message.data={
-      title: data.title,
-      body: data.message,
-      sound: "ringtone"
+    if (device === 'android') {
+      message.data = {
+        title: data.title,
+        body: data.message,
+        sound: "ringtone"
+      };
+    } else {
+      message.notification = {
+        title: data.title,
+        body: data.message,
+        sound: "default"
+      };
     }
-  }else{
-    message.notification={
-      title: data.title,
-      body: data.message,
-      sound: "default"
-    }
-  }
     //envia a notificação
-    fcm.send(message, function(err, response){});
+    fcm.send(message, function (err, response) {
+    });
   },
   sendOneSignal: function (to, device, message) {
     $onesignal.post('notifications',
-    {
-      app_id:"2c98ff23-918f-4620-939c-ebae678da341",
-      headings: {en: message.title},
-      contents: {en: message.message},
-      data:{action:'new_order'},
-      include_player_ids: [to]
-    }, function (errors, data) {
-      console.log(errors, data);
-    });
+      {
+        app_id: "2c98ff23-918f-4620-939c-ebae678da341",
+        headings: {en: message.title},
+        contents: {en: message.message},
+        data: {action: 'new_order'},
+        include_player_ids: [to]
+      }, function (errors, data) {
+        console.log(errors, data);
+      });
   }
 
-}
+};
