@@ -5,19 +5,19 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
- var uuid = require('uuid');
+var uuid = require('uuid');
 
- module.exports = {
+module.exports = {
   autoPK: false,
   attributes: {
-    id: { type: 'string', required: true,  primaryKey: true},
-    device:{model:'device',required:true},
-    zone:{model:'zone',required:false},
-    lat:{ type: 'string', required: true},
-    long:{ type: 'string', required: true},
-    address:{ type: 'string', required: false}
+    id: {type: 'string', required: true, primaryKey: true},
+    device: {model: 'device', required: true},
+    zone: {model: 'zone', required: false},
+    lat: {type: 'string', required: true},
+    long: {type: 'string', required: true},
+    address: {type: 'string', required: false}
   },
-  prepareData: function(params) {
+  prepareData: function (params) {
     var l = {};
     l.device = params.device;
     l.id = uuid.v4();
@@ -27,5 +27,5 @@
     l.address = params.address;
 
     return l;
-  },
-}
+  }
+};

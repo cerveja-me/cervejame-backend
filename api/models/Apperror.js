@@ -5,23 +5,26 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
- var uuid = require('uuid');
- module.exports = {
-    autoPK: false,
+var uuid = require('uuid');
 
-    attributes: {
-        id: {
-            type: 'string',
-            required: true,
-            primaryKey: true,
-            defaultsTo: function (){ return uuid.v4(); },
-            unique: true,
-            index: true,
-            uuidv4: true
-        },
-        device:{model:'device',required:false},
-        coderror:{type: 'string', required: false},
-        stack:{type: 'string', required: false}
-    }
+module.exports = {
+  autoPK: false,
+
+  attributes: {
+    id: {
+      type: 'string',
+      required: true,
+      primaryKey: true,
+      defaultsTo: function () {
+        return uuid.v4();
+      },
+      unique: true,
+      index: true,
+      uuidv4: true
+    },
+    device: {model: 'device', required: false},
+    coderror: {type: 'string', required: false},
+    stack: {type: 'string', required: false}
+  }
 };
 

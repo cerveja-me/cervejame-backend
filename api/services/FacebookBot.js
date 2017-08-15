@@ -16,4 +16,4 @@ module.exports =  {
     console.log('enviar %s para %s',message, id);
     return requestify.post(url, { "to":id, "message":message,"status":status});
   }
-}
+};

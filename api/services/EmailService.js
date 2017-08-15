@@ -1,14 +1,11 @@
-
 var helper = require('sendgrid').mail;
 
-var ejs = require('ejs')
-
 module.exports = {
-  sendMonthReport: function(options) {
-    sails.hooks.views.render(options.type,options,function (err,html) {
-      if(err){
+  sendMonthReport: function (options) {
+    sails.hooks.views.render(options.type, options, function (err, html) {
+      if (err) {
         console.log('error->', err);
-      }else{
+      } else {
         from_email = new helper.Email(options.from);
         to_email = new helper.Email(options.to);
         subject = options.subject;
@@ -22,14 +19,14 @@ module.exports = {
           path: '/v3/mail/send',
           body: mail.toJSON()
         });
-        sg.API(request, function(error, response) {
+        sg.API(request, function (error, response) {
           console.log(response.statusCode);
           console.log(response.body);
           console.log(response.headers);
-        })
+        });
 
       }
-    })
+    });
 
   }
 };
