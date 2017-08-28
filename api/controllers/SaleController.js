@@ -14,16 +14,22 @@ module.exports = {
       return res.badRequest('you must pass all parameters');
     }
     var params = req.body;
+
+    console.log('request->',req.body);
     var s = {};
     s.location = params.location;
     s.address = params.address;
     s.payment = params.payment;
     s.amount = params.product.amount;
+    s.value=params.product.price;
     Prodreg.findOne({id: params.product.id}).populate('product')
       .then(function (productreg) {
         s.prodreg = productreg;
         s.unitvalue = productreg.price;
-        s.value = s.unitvalue * s.amount;
+        if(!s.value){
+          s.value = s.unitvalue * s.amount;
+        }
+        console.log('valor de venda->',s.value);
         if (params.voucher) {
           s.voucher = params.voucher;
           s.discount = params.discount;
@@ -116,4 +122,3 @@ module.exports = {
   }
 
 };
-
