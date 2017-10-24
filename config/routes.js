@@ -43,7 +43,7 @@
   'get /costumer/lastbuy/:id': 'CostumerController.lastBuy',
   'get /costumer/lastbuyOpen/:id': 'CostumerController.lastBuyOpen',
   'post /sale/sendfeedback':'SaleController.sendfeedback',
-  'post /device/sendMessage':'DeviceController.pushMessage',
+  'post /device/sendMessage':'DeviceController.pushMessage', //deprecated
   'post /sale/onway':'SaleController.onWayApp',
   'post /sale/finish':'SaleController.finishSaleApp',
   'get /bot':'AuthController.botResponse',
@@ -62,8 +62,8 @@
   'post /voucher':{view: 'homepage'},
   'post /voucher/create':'VoucherController.create',
   'get /proddetails/:id':'ProdregController.getDetails',
-  'get /prodreg/:zone': 'ProdregController.getAvailableProducts',
-  'post /prodreg/updateStatus':'ProdregController.updateStatus',
+  'get /prodreg/:zone': 'ProdregController.getAvailableProducts', //seller produtos
+  'post /prodreg/updateStatus':'ProdregController.updateStatus', //ativar e desativar
   //v2
   'post /v2/device':'DeviceController.createV2',
   'get /sale/acc/:id':'SaleController.acept',

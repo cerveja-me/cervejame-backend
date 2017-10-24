@@ -16,19 +16,19 @@
   var emailService = EmailService;
   var salesService = SalesService;
   var minuteJob  = scheduler.scheduleJob('*/5 * * * * *', function(){
-    DriverService.sendAppNotification("enviar notificacao para o entregador",function (err, result) {});
-    // DriverService.sendMonthReport("Random text",function (err, result) {}); //mover para evento mensal
-    DriverService.sendAppNotificationTwoMinutesNoAcept("30 segundos sem resposta",function (err, result) {});
-    DriverService.sendAppNotificationFiveMinutesNoAcept("1 minutos sem resposta",function (err, result) {});
-    DriverService.sendAppNotificationTenMinutesNoAcept("3 minutos sem resposta",function (err, result) {});
-    DriverService.callToAdmin("Liga pro caboclo se nao responder em 5 minutos",function (err,result) {});
-    SalesService.requestReceived("o pedido foi aceito(visualizado)",function (err,result) {});
-    SalesService.requestAccepted("o pedido foi aceito(visualizado)",function (err,result) {});
-    SalesService.driverOnWay("entrega a caminho",function (err,result) {});
-    SalesService.finishedSale("venda finalizada",function (err,result) {});
-    SalesService.sendTelegram("notificar o telegram",function (err,result) {});
-    SalesService.sendSlack("notificar o telegram",function (err,result) {});
-    SalesService.sendFeedbackSlack("notificar o telegram",function (err,result) {});
+    // DriverService.sendAppNotification("enviar notificacao para o entregador",function (err, result) {});
+    // // DriverService.sendMonthReport("Random text",function (err, result) {}); //mover para evento mensal
+    // DriverService.sendAppNotificationTwoMinutesNoAcept("30 segundos sem resposta",function (err, result) {});
+    // DriverService.sendAppNotificationFiveMinutesNoAcept("1 minutos sem resposta",function (err, result) {});
+    // DriverService.sendAppNotificationTenMinutesNoAcept("3 minutos sem resposta",function (err, result) {});
+    // DriverService.callToAdmin("Liga pro caboclo se nao responder em 5 minutos",function (err,result) {});
+    // SalesService.requestReceived("o pedido foi aceito(visualizado)",function (err,result) {});
+    // SalesService.requestAccepted("o pedido foi aceito(visualizado)",function (err,result) {});
+    // SalesService.driverOnWay("entrega a caminho",function (err,result) {});
+    // SalesService.finishedSale("venda finalizada",function (err,result) {});
+    // SalesService.sendTelegram("notificar o telegram",function (err,result) {});
+    // SalesService.sendSlack("notificar o telegram",function (err,result) {});
+    // SalesService.sendFeedbackSlack("notificar o telegram",function (err,result) {});
   });
   cb();
 };

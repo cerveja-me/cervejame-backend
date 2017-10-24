@@ -28,34 +28,34 @@ module.exports = {
         var n = d.getDay();
         var h = d.getHours();
         var sche = JSON.parse(productreg.zone.schedule);
-        console.log( sche[n]);
-        console.log(n,h);
-        console.log(h>sche[n].start,h<sche[n].end);
+
         if(h>=sche[n].start && h<sche[n].end){
           return res.badRequest('TIME_IS_UP');
-        }
-        
-        s.prodreg = productreg;
-        s.unitvalue = productreg.price;
-        if(!s.value){
-          s.value = s.unitvalue * s.amount;
-        }
-        console.log('valor de venda->',s.value);
-        if (params.voucher) {
-          s.voucher = params.voucher;
-          s.discount = params.discount;
-          s.value = s.value - s.discount;
-        }
-        Costumer.findOne({id: params.costumer})
-          .then(function (cost) {
-            s.costumer = cost;
-            Sale.create(s)
-              .then(function (saleRes) {
-                return res.send(saleRes);
-              }).catch(function (err) {
-              console.log('err->', err);
+        }else{
+          s.prodreg = productreg;
+          s.unitvalue = productreg.price;
+          if(!s.value){
+            s.value = s.unitvalue * s.amount;
+          }
+          console.log('valor de venda->',s.value);
+          if (params.voucher) {
+            s.voucher = params.voucher;
+            s.discount = params.discount;
+            s.value = s.value - s.discount;
+          }
+          Costumer.findOne({id: params.costumer})
+            .then(function (cost) {
+              s.costumer = cost;
+              Sale.create(s)
+                .then(function (saleRes) {
+                  return res.send(saleRes);
+                }).catch(function (err) {
+                console.log('err->', err);
+              });
             });
-          });
+        }
+
+
       });
   },
   acept: function (req, res) {
