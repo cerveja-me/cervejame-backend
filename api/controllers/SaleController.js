@@ -28,10 +28,14 @@ module.exports = {
         var n = d.getDay();
         var h = d.getHours();
         var sche = JSON.parse(productreg.zone.schedule);
+        console.log('errrroou ->>>');
 
         if(h>=sche[n].start && h<sche[n].end){
-          return res.badRequest('TIME_IS_UP');
+          console.log('errrroou ->>>');
+          return res.status(500).send('TIME_IS_UP');
         }else{
+          // console.log('errrroou ->>>');
+
           s.prodreg = productreg;
           s.unitvalue = productreg.price;
           if(!s.value){
@@ -54,8 +58,6 @@ module.exports = {
               });
             });
         }
-
-
       });
   },
   acept: function (req, res) {
