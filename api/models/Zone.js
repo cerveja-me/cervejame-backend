@@ -21,7 +21,8 @@ module.exports = {
     slack: {type: 'string', required: false},
     telegram: {type: 'string', required: false, defaultsTo: '-1001071922830'},
     schedule: {type: 'string', required: false},
-    admin: {model: 'user'}
+    admin: {model: 'user'},
+    time: {type: 'integer', required: false}
   },
   prepareData: function (params) {
     var z = {};

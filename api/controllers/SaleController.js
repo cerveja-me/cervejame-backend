@@ -15,15 +15,26 @@ module.exports = {
     }
     var params = req.body;
 
-    console.log('request->',req.body);
     var s = {};
     s.location = params.location;
     s.address = params.address;
     s.payment = params.payment;
     s.amount = params.product.amount;
     s.value=params.product.price;
-    Prodreg.findOne({id: params.product.id}).populate('product')
+    Prodreg.findOne({id: params.product.id}).populate('product').populate('zone')
       .then(function (productreg) {
+        var d = new Date();
+        d.setHours(d.getHours() - productreg.zone.time);
+        var n = d.getDay();
+        var h = d.getHours();
+        var sche = JSON.parse(productreg.zone.schedule);
+        console.log( sche[n]);
+        console.log(n,h);
+        console.log(h>sche[n].start,h<sche[n].end);
+        if(h>=sche[n].start && h<sche[n].end){
+          return res.badRequest('TIME_IS_UP');
+        }
+        
         s.prodreg = productreg;
         s.unitvalue = productreg.price;
         if(!s.value){
