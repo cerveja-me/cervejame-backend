@@ -30,8 +30,9 @@ module.exports = {
         var sche = JSON.parse(productreg.zone.schedule);
 
         if(h>=sche[n].start && h<sche[n].end){
-          return res.badRequest('TIME_IS_UP');
+          return res.status(500).send('TIME_IS_UP');
         }else{
+
           s.prodreg = productreg;
           s.unitvalue = productreg.price;
           if(!s.value){
@@ -54,8 +55,6 @@ module.exports = {
               });
             });
         }
-
-
       });
   },
   acept: function (req, res) {

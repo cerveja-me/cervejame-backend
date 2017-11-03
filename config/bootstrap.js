@@ -17,7 +17,7 @@
   var salesService = SalesService;
   var minuteJob  = scheduler.scheduleJob('*/5 * * * * *', function(){
     DriverService.sendAppNotification("enviar notificacao para o entregador",function (err, result) {});
-    // // DriverService.sendMonthReport("Random text",function (err, result) {}); //mover para evento mensal
+    // DriverService.sendMonthReport("Random text",function (err, result) {}); //mover para evento mensal
     DriverService.sendAppNotificationTwoMinutesNoAcept("30 segundos sem resposta",function (err, result) {});
     DriverService.sendAppNotificationFiveMinutesNoAcept("1 minutos sem resposta",function (err, result) {});
     DriverService.sendAppNotificationTenMinutesNoAcept("3 minutos sem resposta",function (err, result) {});
