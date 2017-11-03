@@ -45,6 +45,7 @@
   'post /sale/sendfeedback':'SaleController.sendfeedback',
   'post /device/sendMessage':'DeviceController.pushMessage', //deprecated
   'post /sale/onway':'SaleController.onWayApp',
+  'post /sale/arrived':'SaleController.arrivedApp',
   'post /sale/finish':'SaleController.finishSaleApp',
   'get /bot':'AuthController.botResponse',
   'post /bot':'AuthController.botResponse',

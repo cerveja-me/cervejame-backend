@@ -19,6 +19,7 @@ module.exports = {
     payment: {type: 'string', required: true},
     aceptedAt: {type: 'datetime', required: false},
     onWayAt: {type: 'datetime', required: false},
+    arrivedAt: {type: 'datetime', required: false},
     finishedAt: {type: 'datetime', required: false},
     prodreg: {model: 'prodreg', required: true},
     costumer: {model: 'costumer', required: true},

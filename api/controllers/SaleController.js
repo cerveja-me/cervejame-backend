@@ -70,6 +70,12 @@ module.exports = {
         return res.send(result[0]);
       });
   },
+  arrivedApp: function (req, res) {
+    Sale.update({id: req.body.sale}, {arrivedAt: new Date(), user: req.body.user})
+      .then(function (result) {
+        return res.send(result[0]);
+      });
+  },
   finishSaleApp: function (req, res) {
     console.log('finalizar->', req.body);
     Sale.update({id: req.body.sale}, {

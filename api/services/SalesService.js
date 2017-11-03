@@ -109,6 +109,39 @@ module.exports = {
       });
 
   },
+  driverArrived: function (text, callback) {
+    var query = `select s.id as sale_id, d.push_token, d.type, d.other, u.name as 'driver' from sale s
+      left join location l on l.id = s.location
+      left join device d on d.id = l.device
+      left join user u on u.id = s.user
+      where  s.arrivedAt is not null and
+      s.id not in (select n.id_table from notifications n where n.notification ='SALE_ARRIVED') limit 1;`
+    var queryAssync = Promise.promisify(Sale.query);
+    queryAssync(query)
+      .then(function (res) {
+        if (res.length > 0) {
+          var not = {
+            id: uuid.v4(),
+            notification: "SALE_ARRIVED",
+            id_table: res[0].sale_id
+          };
+          Notifications.create(not)
+            .then(function (result) {
+              if (res[0].other === 'onesignal') {
+                PushService.sendOneSignal(res[0].push_token, "0929a045-d37a-4121-8b9d-74d5c3cb4834");
+              } else if (res[0].other === 'facebook') {
+                FacebookBot.send(res[0].push_token, "Nosso entregador " + res[0].driver + " Acabou de chegar, Agiliza.");
+              }
+              callback(result);
+            });
+        }
+      })
+      .catch(function (err) {
+        sails.log.info('err->', err);
+      });
+
+  },
+
   finishedSale: function (text, callback) {
     var query = "select s.id as sale_id, d.push_token, d.other from sale s " +
       "left join location l on l.id = s.location " +
@@ -286,4 +319,3 @@ module.exports = {
       });
   }
 }
-
